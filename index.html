@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Técnico Produção - Resumo Operacional</title>
+    <title>Registo Técnico Produção - Resumo Operacional</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- html2canvas for JPEG generation -->
+    <!-- html2canvas para geração de JPEG -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- jsPDF for PDF generation -->
+    <!-- jsPDF para geração de PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Custom scrollbars for clean look */
+        /* Barras de rolagem personalizadas */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -38,23 +38,23 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 
-    <!-- Header -->
+    <!-- Cabeçalho -->
     <header class="bg-gradient-to-r from-emerald-800 to-teal-700 text-white shadow-lg border-b border-emerald-900 sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
-                <!-- Requested logo without border/contours -->
+                <!-- Logótipo integrado sem contorno -->
                 <div class="flex items-center justify-center bg-transparent">
-                    <img src="https://i.imgur.com/wEozr34.png" alt="Logo" class="h-14 w-auto object-contain mix-blend-lighten" onerror="this.onerror=null; this.src='https://placehold.co/120x120/10b981/ffffff?text=Logo';">
+                    <img src="https://i.imgur.com/wEozr34.png" alt="Logótipo" class="h-14 w-auto object-contain mix-blend-lighten" onerror="this.onerror=null; this.src='https://placehold.co/120x120/10b981/ffffff?text=Logo';">
                 </div>
                 <div>
-                    <h1 class="text-2xl font-extrabold tracking-tight">Registro Técnico Produção</h1>
+                    <h1 class="text-2xl font-extrabold tracking-tight">Registo Técnico Produção</h1>
                     <p class="text-emerald-100 text-sm font-medium tracking-wide">Resumo Operacional</p>
                 </div>
             </div>
-            <!-- Stats overview badges -->
+            <!-- Painel de estatísticas rápidas -->
             <div class="flex gap-3 text-xs sm:text-sm">
                 <div class="bg-emerald-900/40 backdrop-blur px-4 py-2 rounded-xl border border-emerald-500/20 flex flex-col items-center">
-                    <span class="text-emerald-200">Total Registros</span>
+                    <span class="text-emerald-200">Total Registos</span>
                     <span id="badge-total-records" class="font-bold text-lg text-white">0</span>
                 </div>
                 <div class="bg-emerald-900/40 backdrop-blur px-4 py-2 rounded-xl border border-emerald-500/20 flex flex-col items-center">
@@ -65,14 +65,14 @@
         </div>
     </header>
 
-    <!-- Main Container -->
+    <!-- Contentor Principal -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- Form Section (Left Column) -->
+        <!-- Secção do Formulário (Coluna Esquerda) -->
         <section class="lg:col-span-5 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-6 flex flex-col self-start">
             <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                 <h2 id="form-title" class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <i class="fa-solid fa-circle-plus text-emerald-600"></i> Novo Registro Técnico
+                    <i class="fa-solid fa-circle-plus text-emerald-600"></i> Novo Registo Técnico
                 </h2>
                 <button id="btn-cancel-edit" class="hidden text-xs text-rose-500 hover:text-rose-700 font-semibold px-2 py-1 rounded-md bg-rose-50 hover:bg-rose-100 transition-colors">
                     Cancelar Edição
@@ -80,7 +80,7 @@
             </div>
 
             <form id="production-form" class="space-y-5" onsubmit="handleFormSubmit(event)">
-                <!-- Data e Semana Automatica -->
+                <!-- Data e Semana Automática -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label for="reg-date" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Data *</label>
@@ -90,19 +90,19 @@
                         </div>
                     </div>
                     <div>
-                        <label for="reg-week" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Semana (Auto)</label>
+                        <label for="reg-week" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Semana (Automática)</label>
                         <input type="text" id="reg-week" readonly placeholder="Calculado ao escolher data"
                             class="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-600 font-medium outline-none cursor-not-allowed">
                     </div>
                 </div>
 
-                <!-- Bloco Select e Input Custom -->
+                <!-- Seleção do Bloco e Entrada Personalizada -->
                 <div class="space-y-2">
                     <label for="reg-block" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Bloco *</label>
                     <select id="reg-block" required onchange="toggleBlockCustomInput(this.value)"
                         class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
                         <option value="" disabled selected>Selecione o Bloco</option>
-                        <!-- Options generated dynamically from 01 to 18 -->
+                        <!-- Geração dinâmica dos blocos de 01 a 18 -->
                         <script>
                             for(let i=1; i<=18; i++) {
                                 const num = String(i).padStart(2, '0');
@@ -111,14 +111,14 @@
                         </script>
                         <option value="Outros">Outros (Digitar)</option>
                     </select>
-                    <!-- Custom input hidden by default -->
+                    <!-- Campo para digitação de bloco alternativo -->
                     <div id="block-custom-container" class="hidden mt-2 animate-fadeIn">
                         <input type="text" id="reg-block-custom" placeholder="Digite a identificação do bloco..."
                             class="w-full rounded-xl border border-emerald-300 bg-emerald-50/30 px-4 py-3 text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all">
                     </div>
                 </div>
 
-                <!-- Cultura Select e Input Custom -->
+                <!-- Seleção da Cultura e Entrada Personalizada -->
                 <div class="space-y-2">
                     <label for="reg-crop" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Cultura *</label>
                     <select id="reg-crop" required onchange="toggleCropCustomInput(this.value)"
@@ -128,7 +128,7 @@
                         <option value="Couve flor">Couve flor</option>
                         <option value="Outros">Outros (Digitar)</option>
                     </select>
-                    <!-- Custom input hidden by default -->
+                    <!-- Campo para digitação de cultura alternativa -->
                     <div id="crop-custom-container" class="hidden mt-2 animate-fadeIn">
                         <input type="text" id="reg-crop-custom" placeholder="Digite o nome da cultura..."
                             class="w-full rounded-xl border border-emerald-300 bg-emerald-50/30 px-4 py-3 text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all">
@@ -181,31 +181,31 @@
                         <p class="text-[10px] text-slate-400 mt-1">Imagens no formato JPG ou PNG</p>
                     </div>
 
-                    <!-- Photo Previews Grid -->
+                    <!-- Grelha de Pré-visualização de Fotos -->
                     <div id="photo-preview-grid" class="grid grid-cols-4 gap-2 mt-3 empty:hidden">
-                        <!-- Preview Cards will be injected here -->
+                        <!-- Os cartões de pré-visualização serão inseridos aqui -->
                     </div>
                 </div>
 
-                <!-- Submit Button -->
+                <!-- Botão de Submissão -->
                 <button type="submit" id="btn-submit-form"
                     class="w-full bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold py-3 px-6 rounded-xl shadow-md shadow-emerald-600/20 hover:shadow-lg hover:shadow-emerald-600/30 transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-floppy-disk"></i> Salvar Registro Técnico
+                    <i class="fa-solid fa-floppy-disk"></i> Salvar Registo Técnico
                 </button>
             </form>
         </section>
 
-        <!-- Records History List Section (Right Column) -->
+        <!-- Secção do Histórico (Coluna Direita) -->
         <section class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-6 flex flex-col">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
                 <div>
                     <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-solid fa-list-check text-teal-600"></i> Histórico de Registros
+                        <i class="fa-solid fa-list-check text-teal-600"></i> Histórico de Registos
                     </h2>
                     <p class="text-slate-400 text-xs font-medium">Lista de avaliações e relatórios lançados</p>
                 </div>
                 
-                <!-- Search and Filters -->
+                <!-- Pesquisa de Registos -->
                 <div class="relative w-full sm:w-64">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400 text-xs">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -215,30 +215,30 @@
                 </div>
             </div>
 
-            <!-- List of Records -->
+            <!-- Lista de Registos -->
             <div id="records-list" class="flex-grow space-y-4 overflow-y-auto max-h-[750px] pr-2">
-                <!-- Empty state shown when no records -->
+                <!-- Estado vazio apresentado por defeito se não existirem registos -->
                 <div id="empty-state" class="flex flex-col items-center justify-center py-20 text-center space-y-4">
                     <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-300">
                         <i class="fa-solid fa-clipboard-list text-4xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-slate-700">Nenhum registro encontrado</h3>
+                        <h3 class="text-base font-bold text-slate-700">Nenhum registo encontrado</h3>
                         <p class="text-slate-400 text-xs max-w-sm mt-1 mx-auto">Preencha o formulário técnico à esquerda para adicionar o primeiro resumo de produção.</p>
                     </div>
                 </div>
 
-                <!-- Dynamic list cards are injected here -->
+                <!-- Os registos dinâmicos serão injetados aqui -->
             </div>
         </section>
 
     </main>
 
-    <!-- Custom Dialog Modal (Confirmation & Alerts instead of browser alert) -->
+    <!-- Modal de Diálogo Personalizado (Confirmação e Alertas) -->
     <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden animate-fadeIn">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 transform transition-all flex flex-col items-center text-center">
             <div id="modal-icon-container" class="p-4 rounded-full mb-4">
-                <!-- Icon injected dynamic -->
+                <!-- Ícone dinâmico -->
             </div>
             <h3 id="modal-title" class="text-lg font-bold text-slate-900"></h3>
             <p id="modal-message" class="text-slate-500 text-sm mt-2 mb-6"></p>
@@ -249,23 +249,23 @@
         </div>
     </div>
 
-    <!-- Export Review / Print Modal -->
+    <!-- Modal de Visualização de Exportação -->
     <div id="export-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl max-w-4xl w-full h-[90vh] flex flex-col shadow-2xl border border-slate-100 animate-slideUp">
-            <!-- Modal Header -->
+            <!-- Cabeçalho do Modal -->
             <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50 rounded-t-3xl">
                 <div>
                     <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                         <i class="fa-solid fa-print text-emerald-600"></i> Visualização de Exportação
                     </h3>
-                    <p class="text-xs text-slate-400 font-medium">Confirme os dados antes de baixar seu arquivo em alta resolução.</p>
+                    <p class="text-xs text-slate-400 font-medium">Confirme os dados antes de descarregar o ficheiro em alta resolução.</p>
                 </div>
                 <div class="flex items-center gap-2 self-stretch sm:self-auto">
                     <button onclick="downloadAsJPEG()" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-sm transition-colors flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-file-image"></i> Baixar JPEG
+                        <i class="fa-solid fa-file-image"></i> Descarregar JPEG
                     </button>
                     <button onclick="downloadAsPDF()" class="flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-sm transition-colors flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-file-pdf"></i> Baixar PDF
+                        <i class="fa-solid fa-file-pdf"></i> Descarregar PDF
                     </button>
                     <button onclick="closeExportModal()" class="text-slate-400 hover:text-slate-600 p-2.5 hover:bg-slate-100 rounded-xl transition-colors" title="Fechar">
                         <i class="fa-solid fa-xmark text-lg"></i>
@@ -273,16 +273,16 @@
                 </div>
             </div>
 
-            <!-- Print Canvas Container (Scrollable display for review) -->
+            <!-- Visualização da Folha de Impressão (com scroll) -->
             <div class="flex-grow overflow-y-auto p-8 bg-slate-100 flex justify-center">
-                <!-- This is the container that html2canvas will target -->
+                <!-- Contentor visado pelo html2canvas -->
                 <div id="print-sheet" class="bg-white w-[750px] shadow-lg p-10 border border-slate-200 text-slate-800 flex flex-col space-y-8 rounded-lg self-start">
                     
-                    <!-- Document Header with Requested Logo without borders -->
+                    <!-- Cabeçalho do Relatório com Logótipo sem contorno -->
                     <div class="flex justify-between items-center border-b-2 border-emerald-600 pb-6">
                         <div class="flex items-center space-x-4">
-                            <!-- Logo integrated inside PDF document header -->
-                            <img src="https://i.imgur.com/wEozr34.png" alt="Logo" class="h-14 w-auto object-contain bg-transparent border-0 outline-none" onerror="this.onerror=null; this.src='https://placehold.co/100x100/10b981/ffffff?text=Logo';">
+                            <!-- Logótipo integrado sem contorno no cabeçalho do documento -->
+                            <img src="https://i.imgur.com/wEozr34.png" alt="Logótipo" class="h-14 w-auto object-contain bg-transparent border-0 outline-none" onerror="this.onerror=null; this.src='https://placehold.co/100x100/10b981/ffffff?text=Logo';">
                             <div>
                                 <span class="text-[10px] font-bold tracking-wider text-emerald-700 uppercase bg-emerald-100 px-3 py-1 rounded-full">Ficha Técnica Oficial</span>
                                 <h2 class="text-2xl font-black text-slate-900 mt-2">REGISTRO TÉCNICO PRODUÇÃO</h2>
@@ -295,10 +295,10 @@
                         </div>
                     </div>
 
-                    <!-- Meta Grid (Main technical variables) -->
+                    <!-- Grelha de Metadados -->
                     <div class="grid grid-cols-2 gap-x-8 gap-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-200/60">
                         <div class="flex flex-col">
-                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Data de Registro</span>
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Data de Registo</span>
                             <span id="print-data" class="text-lg font-extrabold text-slate-800">--</span>
                         </div>
                         <div class="flex flex-col">
@@ -315,47 +315,47 @@
                         </div>
                     </div>
 
-                    <!-- Counters Table Grid -->
+                    <!-- Grelha de Métricas (Centrada de forma absoluta) -->
                     <div>
-                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Métricas de Avaliação</h4>
+                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 text-center sm:text-left">Métricas de Avaliação</h4>
                         <div class="grid grid-cols-5 gap-3">
-                            <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl text-center">
-                                <span class="text-[9px] text-slate-400 font-bold uppercase block leading-tight">Total Canteiros</span>
-                                <p id="print-total-canteiros" class="text-xl font-black text-slate-800 mt-1">0</p>
+                            <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-slate-400 font-bold uppercase block leading-tight text-center w-full">Total Canteiros</span>
+                                <p id="print-total-canteiros" class="text-xl font-black text-slate-800 mt-1 text-center w-full">0</p>
                             </div>
-                            <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-xl text-center">
-                                <span class="text-[9px] text-emerald-600 font-bold uppercase block leading-tight">Cabeças a Colher</span>
-                                <p id="print-colher" class="text-xl font-black text-emerald-700 mt-1">0</p>
+                            <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-emerald-600 font-bold uppercase block leading-tight text-center w-full">Cabeças a Colher</span>
+                                <p id="print-colher" class="text-xl font-black text-emerald-700 mt-1 text-center w-full">0</p>
                             </div>
-                            <div class="bg-rose-50 border border-rose-100 p-3 rounded-xl text-center">
-                                <span class="text-[9px] text-rose-500 font-bold uppercase block leading-tight">Cab. Deformadas</span>
-                                <p id="print-deformadas" class="text-xl font-black text-rose-600 mt-1">0</p>
+                            <div class="bg-rose-50 border border-rose-100 p-3 rounded-xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-rose-500 font-bold uppercase block leading-tight text-center w-full">Cab. Deformadas</span>
+                                <p id="print-deformadas" class="text-xl font-black text-rose-600 mt-1 text-center w-full">0</p>
                             </div>
-                            <div class="bg-amber-50 border border-amber-100 p-3 rounded-xl text-center">
-                                <span class="text-[9px] text-amber-600 font-bold uppercase block leading-tight">Abaixo do Peso</span>
-                                <p id="print-abaixo-peso" class="text-xl font-black text-amber-600 mt-1">0</p>
+                            <div class="bg-amber-50 border border-amber-100 p-3 rounded-xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-amber-600 font-bold uppercase block leading-tight text-center w-full">Abaixo do Peso</span>
+                                <p id="print-abaixo-peso" class="text-xl font-black text-amber-600 mt-1 text-center w-full">0</p>
                             </div>
-                            <div class="bg-sky-50 border border-sky-100 p-3 rounded-xl text-center">
-                                <span class="text-[9px] text-sky-600 font-bold uppercase block leading-tight">Média Cm</span>
-                                <p id="print-media-cm" class="text-xl font-black text-sky-700 mt-1">0.0</p>
+                            <div class="bg-sky-50 border border-sky-100 p-3 rounded-xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-sky-600 font-bold uppercase block leading-tight text-center w-full">Média Cm</span>
+                                <p id="print-media-cm" class="text-xl font-black text-sky-700 mt-1 text-center w-full">0.0</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- LARGE Photos Grid (Visibilidade ampliada) -->
+                    <!-- Grelha de Fotos Amplas e sem distorção -->
                     <div class="space-y-4">
-                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-1.5">
-                            <i class="fa-solid fa-images text-emerald-600"></i> Fotos Anexadas de Campo <span class="text-[10px] text-slate-400 normal-case">(Nítidas e Ampliadas)</span>
+                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center justify-center sm:justify-start gap-1.5">
+                            <i class="fa-solid fa-images text-emerald-600"></i> Fotos Anexadas de Campo <span class="text-[10px] text-slate-400 normal-case">(Nítidas, Proporcionais e Visíveis)</span>
                         </h4>
-                        <!-- Container designed to maintain high size for visual check -->
+                        <!-- Contentor otimizado para não achatar ou distorcer imagens na exportação -->
                         <div id="print-photos-container" class="grid grid-cols-1 gap-6">
-                            <!-- High resolution base64 images will render here wide enough to see -->
+                            <!-- Imagens em alta resolução serão renderizadas aqui em formato proporcional -->
                         </div>
                     </div>
 
-                    <!-- Footer and Signatures -->
+                    <!-- Rodapé do Documento -->
                     <div class="border-t border-slate-200 pt-8 flex justify-between items-center text-xs text-slate-400">
-                        <p>Registro Técnico Produção • Resumo Operacional</p>
+                        <p>Registo Técnico Produção • Resumo Operacional</p>
                         <p class="font-semibold text-slate-500">Documento Gerado Digitalmente</p>
                     </div>
 
@@ -364,28 +364,28 @@
         </div>
     </div>
 
-    <!-- Floating Toast Notifications -->
+    <!-- Contentor flutuante para notificações Toast -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
 
     <footer class="bg-slate-100 border-t border-slate-200 py-4 mt-8">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400 font-medium">
-            &copy; 2026 Registro Técnico Produção. Todos os direitos reservados.
+            &copy; 2026 Registo Técnico Produção. Todos os direitos reservados.
         </div>
     </footer>
 
     <script>
-        // State variables
+        // Variáveis de Estado
         let productionRecords = [];
-        let currentPhotos = []; // holds base64 encoded strings of images currently loaded in the form
-        let editingRecordId = null; // null if creating, ID string if editing
-        let exportActiveRecordId = null; // keeps track of which record is loaded inside the print-sheet modal
+        let currentPhotos = []; // Armazena strings em base64 das imagens atualmente carregadas no formulário
+        let editingRecordId = null; // null se estiver a criar, string ID se estiver a editar
+        let exportActiveRecordId = null; // ID do registo atualmente carregado no modal de exportação
 
-        // Custom modal variables
+        // Variáveis do Modal Personalizado
         let customModalCallback = null;
 
-        // Initialize Application
+        // Inicialização da Aplicação
         window.addEventListener('load', () => {
-            // Load from LocalStorage if available
+            // Carregar do LocalStorage se disponível
             const saved = localStorage.getItem('reg_prod_records');
             if (saved) {
                 try {
@@ -395,20 +395,20 @@
                 }
             }
             
-            // Set default date to today
+            // Definir data predefinida para hoje
             const dateInput = document.getElementById('reg-date');
             const today = new Date().toISOString().split('T')[0];
             dateInput.value = today;
             updateWeekByDate(today);
 
-            // Set dynamic event listeners
+            // Ouvintes de eventos
             dateInput.addEventListener('change', (e) => {
                 updateWeekByDate(e.target.value);
             });
 
             document.getElementById('btn-cancel-edit').addEventListener('click', cancelEditing);
 
-            // Drag and Drop listeners for Photo uploads
+            // Drag and Drop para anexar fotos
             const dropZone = document.getElementById('drop-zone');
             
             ['dragenter', 'dragover'].forEach(eventName => {
@@ -435,12 +435,12 @@
                 document.getElementById('reg-photos').click();
             });
 
-            // Initial render
+            // Renderização inicial
             renderRecords();
             updateStatsBadges();
         });
 
-        // Helper to convert date string into correct ISO Week representation
+        // Conversão de data para formato padrão ISO 8601 da Semana
         function updateWeekByDate(dateString) {
             const weekInput = document.getElementById('reg-week');
             if (!dateString) {
@@ -453,7 +453,7 @@
                 return;
             }
             
-            // ISO 8601 Week Calculation logic
+            // Lógica de cálculo da semana do ano ISO 8601
             const target = new Date(date.valueOf());
             const dayNr = (date.getDay() + 6) % 7;
             target.setDate(target.getDate() - dayNr + 3);
@@ -467,7 +467,7 @@
             weekInput.value = `Semana ${String(weekNumber).padStart(2, '0')}`;
         }
 
-        // Toggle Dynamic Bloco Outros input field
+        // Alternar visualização do campo alternativo de Bloco
         function toggleBlockCustomInput(value) {
             const container = document.getElementById('block-custom-container');
             const customInput = document.getElementById('reg-block-custom');
@@ -481,7 +481,7 @@
             }
         }
 
-        // Toggle Dynamic Cultura Outros input field
+        // Alternar visualização do campo alternativo de Cultura
         function toggleCropCustomInput(value) {
             const container = document.getElementById('crop-custom-container');
             const customInput = document.getElementById('reg-crop-custom');
@@ -495,7 +495,7 @@
             }
         }
 
-        // Display beautiful customized feedback toasts
+        // Exibir notificações Toast no canto inferior direito
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -523,7 +523,7 @@
             }, 3000);
         }
 
-        // Show Modal Dialog
+        // Exibir caixa de diálogo de confirmação (em substituição de alertas nativos)
         function showCustomModal(title, message, iconType, onConfirm) {
             const modal = document.getElementById('custom-modal');
             const modalTitle = document.getElementById('modal-title');
@@ -557,12 +557,12 @@
             };
         }
 
-        // Handle trigger file selector
+        // Processar seleção de fotografias
         function handlePhotoSelect(e) {
             processUploadedFiles(e.target.files);
         }
 
-        // Process file uploads & transform into base64 to store securely inside LocalStorage
+        // Processar ficheiros de imagem e converter em base64
         function processUploadedFiles(files) {
             let processedCount = 0;
             const targetCount = files.length;
@@ -571,7 +571,7 @@
 
             Array.from(files).forEach(file => {
                 if (!file.type.startsWith('image/')) {
-                    showToast('Selecione apenas arquivos de imagem.', 'error');
+                    showToast('Selecione apenas ficheiros de imagem.', 'error');
                     return;
                 }
 
@@ -587,14 +587,14 @@
             });
         }
 
-        // Render file previews on form
+        // Renderizar pré-visualização das fotos no formulário
         function renderPhotoPreviews() {
             const grid = document.getElementById('photo-preview-grid');
             grid.innerHTML = '';
 
             currentPhotos.forEach((photo, idx) => {
                 const wrapper = document.createElement('div');
-                wrapper.className = 'relative group aspect-square rounded-xl overflow-hidden border border-slate-200';
+                wrapper.className = 'relative group aspect-square rounded-xl overflow-hidden border border-slate-200 bg-white';
                 wrapper.innerHTML = `
                     <img src="${photo}" class="w-full h-full object-cover">
                     <button type="button" onclick="removePhoto(${idx})"
@@ -606,24 +606,22 @@
             });
         }
 
-        // Remove picture from memory before registering
+        // Remover foto da memória antes de registar
         function removePhoto(index) {
             currentPhotos.splice(index, 1);
             renderPhotoPreviews();
         }
 
-        // Clear Form inputs completely
+        // Limpar o formulário técnico por completo
         function resetForm() {
             const form = document.getElementById('production-form');
             form.reset();
             
-            // Set dynamic inputs back to state
             toggleBlockCustomInput('');
             toggleCropCustomInput('');
             currentPhotos = [];
             renderPhotoPreviews();
             
-            // Set today's date
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('reg-date').value = today;
             updateWeekByDate(today);
@@ -631,11 +629,10 @@
             cancelEditing();
         }
 
-        // Form Submit Handler (Creation & Editing update)
+        // Submissão do Formulário (Inserção e Edição)
         function handleFormSubmit(e) {
             e.preventDefault();
 
-            // Format Form Values
             const inputDate = document.getElementById('reg-date').value;
             const inputWeek = document.getElementById('reg-week').value;
             
@@ -664,7 +661,7 @@
             const avgSize = parseFloat(document.getElementById('reg-avg-size').value) || 0.0;
 
             if (editingRecordId !== null) {
-                // UPDATE RECORD IN THE STATE
+                // Atualizar registo existente
                 const recordIdx = productionRecords.findIndex(r => r.id === editingRecordId);
                 if (recordIdx > -1) {
                     productionRecords[recordIdx] = {
@@ -678,16 +675,16 @@
                         deformed: deformedHeads,
                         underweight: underweightHeads,
                         avgSize: avgSize,
-                        photos: [...currentPhotos] // maintain copies of current photo base64 arrays
+                        photos: [...currentPhotos]
                     };
-                    showToast('Registro Técnico atualizado com sucesso!');
+                    showToast('Registo Técnico atualizado com sucesso!');
                 }
                 editingRecordId = null;
-                document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-circle-plus text-emerald-600"></i> Novo Registro Técnico`;
-                document.getElementById('btn-submit-form').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Salvar Registro Técnico`;
+                document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-circle-plus text-emerald-600"></i> Novo Registo Técnico`;
+                document.getElementById('btn-submit-form').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Salvar Registo Técnico`;
                 document.getElementById('btn-cancel-edit').classList.add('hidden');
             } else {
-                // CREATE NEW RECORD
+                // Criar novo registo técnico
                 const newRecord = {
                     id: 'rec_' + Date.now(),
                     date: inputDate,
@@ -702,25 +699,23 @@
                     photos: [...currentPhotos]
                 };
                 
-                productionRecords.unshift(newRecord); // Adds new record to the top of list
-                showToast('Registro Técnico cadastrado com sucesso!');
+                productionRecords.unshift(newRecord);
+                showToast('Registo Técnico cadastrado com sucesso!');
             }
 
-            // Save state, refresh lists & empty inputs
             saveStateToLocalStorage();
             resetForm();
             renderRecords();
             updateStatsBadges();
         }
 
-        // Cancel Editing and rollback form style
+        // Cancelar modo de edição
         function cancelEditing() {
             editingRecordId = null;
-            document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-circle-plus text-emerald-600"></i> Novo Registro Técnico`;
-            document.getElementById('btn-submit-form').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Salvar Registro Técnico`;
+            document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-circle-plus text-emerald-600"></i> Novo Registo Técnico`;
+            document.getElementById('btn-submit-form').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Salvar Registo Técnico`;
             document.getElementById('btn-cancel-edit').classList.add('hidden');
             
-            // clear photos and fields
             currentPhotos = [];
             renderPhotoPreviews();
             document.getElementById('production-form').reset();
@@ -731,23 +726,20 @@
             toggleCropCustomInput('');
         }
 
-        // Launch Edit Mode on a specific record
+        // Iniciar modo de edição para carregar registo no formulário
         function editRecord(id) {
             const record = productionRecords.find(r => r.id === id);
             if (!record) return;
 
             editingRecordId = id;
             
-            // Toggle Form Visuals to EDIT
-            document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-pen-to-square text-amber-500"></i> Editando Registro`;
-            document.getElementById('btn-submit-form').innerHTML = `<i class="fa-solid fa-rotate"></i> Atualizar Registro`;
+            document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-pen-to-square text-amber-500"></i> Editando Registo`;
+            document.getElementById('btn-submit-form').innerHTML = `<i class="fa-solid fa-rotate"></i> Atualizar Registo`;
             document.getElementById('btn-cancel-edit').classList.remove('hidden');
 
-            // Populate Form Fields
             document.getElementById('reg-date').value = record.date;
             document.getElementById('reg-week').value = record.week;
             
-            // Check Bloco custom value setup
             const blockSelect = document.getElementById('reg-block');
             const predefinedBlocks = Array.from(blockSelect.options).map(opt => opt.value);
             if (predefinedBlocks.includes(record.block)) {
@@ -759,7 +751,6 @@
                 document.getElementById('reg-block-custom').value = record.block;
             }
 
-            // Check Cultura custom value setup
             const cropSelect = document.getElementById('reg-crop');
             const predefinedCrops = Array.from(cropSelect.options).map(opt => opt.value);
             if (predefinedCrops.includes(record.crop)) {
@@ -777,29 +768,26 @@
             document.getElementById('reg-underweight').value = record.underweight;
             document.getElementById('reg-avg-size').value = record.avgSize || 0.0;
 
-            // Load Photos
             currentPhotos = [...record.photos];
             renderPhotoPreviews();
 
-            // Scroll to form nicely on mobile
             document.getElementById('production-form').scrollIntoView({ behavior: 'smooth' });
-            showToast('Dados do registro carregados no formulário!', 'info');
+            showToast('Dados do registo carregados no formulário!', 'info');
         }
 
-        // Delete record confirmation logic
+        // Excluir registo do histórico
         function deleteRecord(id) {
             showCustomModal(
-                'Excluir Registro?',
-                'Tem certeza de que deseja apagar permanentemente este registro técnico da lista? Esta ação não pode ser desfeita.',
+                'Excluir Registo?',
+                'Tem certeza de que deseja apagar permanentemente este registo técnico da lista? Esta ação não pode ser desfeita.',
                 'delete',
                 () => {
                     productionRecords = productionRecords.filter(r => r.id !== id);
                     saveStateToLocalStorage();
                     renderRecords();
                     updateStatsBadges();
-                    showToast('O registro foi excluído com sucesso.', 'info');
+                    showToast('O registo foi excluído com sucesso.', 'info');
                     
-                    // If the deleted record was currently being edited, reset form
                     if (editingRecordId === id) {
                         cancelEditing();
                     }
@@ -807,24 +795,23 @@
             );
         }
 
-        // Save records state to local browser memory
+        // Persistir dados guardados no armazenamento local
         function saveStateToLocalStorage() {
             localStorage.setItem('reg_prod_records', JSON.stringify(productionRecords));
         }
 
-        // Calculate Stats Badges
+        // Atualizar painéis de estatísticas rápidas
         function updateStatsBadges() {
             document.getElementById('badge-total-records').innerText = productionRecords.length;
             const totalBedsSum = productionRecords.reduce((sum, item) => sum + item.totalBeds, 0);
             document.getElementById('badge-total-beds').innerText = totalBedsSum;
         }
 
-        // Render records cards inside History panel
+        // Renderizar painel de cartões de histórico (Foco na centralização das métricas)
         function renderRecords(recordsToRender = productionRecords) {
             const listContainer = document.getElementById('records-list');
             const emptyState = document.getElementById('empty-state');
             
-            // Cleanup existing record items (leaving empty state if needed)
             const cards = listContainer.querySelectorAll('.record-card');
             cards.forEach(card => card.remove());
 
@@ -838,11 +825,10 @@
                 const card = document.createElement('div');
                 card.className = 'record-card bg-slate-50/50 hover:bg-slate-50 border border-slate-200/80 rounded-2xl p-5 space-y-4 hover:shadow-md transition-all duration-200';
                 
-                // Format display date
                 const parts = record.date.split('-');
                 const formattedDate = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : record.date;
 
-                // Create photo list HTML if photos exist
+                // Construção da lista de pré-visualização das fotos anexadas
                 let photosHTML = '';
                 if (record.photos && record.photos.length > 0) {
                     photosHTML = `
@@ -860,10 +846,10 @@
                 }
 
                 card.innerHTML = `
-                    <!-- Top Info Row with Requested Logo -->
+                    <!-- Top Info Row com Logótipo sem contorno -->
                     <div class="flex justify-between items-start flex-wrap gap-2">
                         <div class="flex items-center space-x-3">
-                            <img src="https://i.imgur.com/wEozr34.png" alt="Logo" class="h-8 w-auto object-contain bg-transparent border-0" onerror="this.onerror=null; this.src='https://placehold.co/50x50/10b981/ffffff?text=Logo';">
+                            <img src="https://i.imgur.com/wEozr34.png" alt="Logótipo" class="h-8 w-auto object-contain bg-transparent border-0" onerror="this.onerror=null; this.src='https://placehold.co/50x50/10b981/ffffff?text=Logo';">
                             <div>
                                 <div class="flex items-center gap-2 flex-wrap">
                                     <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-lg">
@@ -881,7 +867,7 @@
                             </div>
                         </div>
                         
-                        <!-- Actions button grid -->
+                        <!-- Painel de botões rápidos -->
                         <div class="flex items-center gap-1">
                             <button onclick="openExportModal('${record.id}')" title="Exportar Relatório"
                                 class="p-2 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors">
@@ -898,38 +884,38 @@
                         </div>
                     </div>
 
-                    <!-- Metrics Badges Grid expanded to support all 5 fields -->
+                    <!-- Cartões de Métricas (Centrados de forma absoluta e rigorosa) -->
                     <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-3 border-t border-slate-200/60 text-xs">
-                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 text-center">
-                            <span class="text-[9px] text-slate-400 font-semibold block uppercase leading-none mb-1">Canteiros</span>
-                            <span class="text-sm font-extrabold text-slate-700">${record.totalBeds}</span>
+                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
+                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Canteiros</span>
+                            <span class="text-sm font-extrabold text-slate-700 text-center block w-full">${record.totalBeds}</span>
                         </div>
-                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 text-center">
-                            <span class="text-[9px] text-slate-400 font-semibold block uppercase leading-none mb-1">A Colher</span>
-                            <span class="text-sm font-extrabold text-emerald-600">${record.toHarvest || 0}</span>
+                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
+                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">A Colher</span>
+                            <span class="text-sm font-extrabold text-emerald-600 text-center block w-full">${record.toHarvest || 0}</span>
                         </div>
-                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 text-center">
-                            <span class="text-[9px] text-slate-400 font-semibold block uppercase leading-none mb-1">Deformadas</span>
-                            <span class="text-sm font-extrabold ${record.deformed > 0 ? 'text-rose-600' : 'text-slate-500'}">${record.deformed}</span>
+                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
+                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Deformadas</span>
+                            <span class="text-sm font-extrabold ${record.deformed > 0 ? 'text-rose-600' : 'text-slate-500'} text-center block w-full">${record.deformed}</span>
                         </div>
-                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 text-center">
-                            <span class="text-[9px] text-slate-400 font-semibold block uppercase leading-none mb-1">Sub-peso</span>
-                            <span class="text-sm font-extrabold ${record.underweight > 0 ? 'text-amber-600' : 'text-slate-500'}">${record.underweight}</span>
+                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
+                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Sub-peso</span>
+                            <span class="text-sm font-extrabold ${record.underweight > 0 ? 'text-amber-600' : 'text-slate-500'} text-center block w-full">${record.underweight}</span>
                         </div>
-                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 text-center">
-                            <span class="text-[9px] text-slate-400 font-semibold block uppercase leading-none mb-1">Média Cm</span>
-                            <span class="text-sm font-extrabold text-sky-600">${record.avgSize ? Number(record.avgSize).toFixed(1) : '0.0'}</span>
+                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
+                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Média Cm</span>
+                            <span class="text-sm font-extrabold text-sky-600 text-center block w-full">${record.avgSize ? Number(record.avgSize).toFixed(1) : '0.0'}</span>
                         </div>
                     </div>
 
-                    <!-- Attached Thumbnail Section -->
+                    <!-- Fotografias Anexadas -->
                     ${photosHTML}
                 `;
                 listContainer.appendChild(card);
             });
         }
 
-        // Filter search logic dynamically on input text
+        // Filtro de pesquisa dinâmica por bloco, cultura ou semana
         function filterRecords() {
             const query = document.getElementById('search-input').value.toLowerCase().trim();
             if (!query) {
@@ -945,14 +931,13 @@
             renderRecords(filtered);
         }
 
-        // Open Print Modal preview sheet with proper record variables loaded
+        // Carregar dados e abrir modal de exportação
         function openExportModal(recordId) {
             const record = productionRecords.find(r => r.id === recordId);
             if (!record) return;
 
             exportActiveRecordId = recordId;
 
-            // Load variables inside printed preview page
             const parts = record.date.split('-');
             const formattedDate = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : record.date;
             
@@ -966,26 +951,27 @@
             document.getElementById('print-abaixo-peso').innerText = record.underweight;
             document.getElementById('print-media-cm').innerText = record.avgSize ? Number(record.avgSize).toFixed(1) : '0.0';
 
-            // Timestamp rendering
+            // Carimbo de data/hora oficial de exportação
             const now = new Date();
-            const dateStr = now.toLocaleDateString('pt-BR');
-            const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            const dateStr = now.toLocaleDateString('pt-PT');
+            const timeStr = now.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
             document.getElementById('print-sheet-timestamp').innerText = `${dateStr} às ${timeStr}`;
 
-            // Load photos in large grid specifically optimized for clear rendering and visibility check
+            // Listagem de fotos sem achatamento e com alta visibilidade
             const photosContainer = document.getElementById('print-photos-container');
             photosContainer.innerHTML = '';
 
             if (record.photos && record.photos.length > 0) {
                 record.photos.forEach((photoData, idx) => {
-                    // Create an individual container where each photo stays large & easily visible on document
                     const imgBox = document.createElement('div');
-                    imgBox.className = "flex flex-col items-center justify-center p-3 bg-slate-50 border border-slate-200 rounded-2xl";
+                    imgBox.className = "flex flex-col items-center justify-center p-4 bg-slate-50 border border-slate-200 rounded-2xl";
+                    
+                    // Estrutura fluida que impede achatamento da imagem
                     imgBox.innerHTML = `
-                        <div class="w-full h-[320px] rounded-lg overflow-hidden border border-slate-200 shadow-sm bg-white flex items-center justify-center">
-                            <img src="${photoData}" class="w-full h-full object-contain">
+                        <div class="w-full flex items-center justify-center bg-white p-2 border border-slate-100 rounded-xl" style="min-height: 280px; max-height: 420px; overflow: hidden;">
+                            <img src="${photoData}" class="max-w-full max-h-[380px] w-auto h-auto object-contain mx-auto rounded-md" style="display: block;">
                         </div>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase mt-2">Imagem de Campo #${idx + 1}</span>
+                        <span class="text-[10px] text-slate-400 font-bold uppercase mt-3 tracking-wider">Imagem de Campo #${idx + 1}</span>
                     `;
                     photosContainer.appendChild(imgBox);
                 });
@@ -993,38 +979,37 @@
                 photosContainer.innerHTML = `
                     <div class="py-12 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center text-slate-400 justify-center">
                         <i class="fa-solid fa-camera-retro text-3xl mb-2"></i>
-                        <span class="text-xs font-semibold">Sem fotos anexadas a este registro.</span>
+                        <span class="text-xs font-semibold">Sem fotos anexadas a este registo.</span>
                     </div>
                 `;
             }
 
-            // Display modal
             const modal = document.getElementById('export-modal');
             modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // block page scrolling under modal
+            document.body.style.overflow = 'hidden'; // impede scroll de fundo do ecrã
         }
 
-        // Close export container modal
+        // Fechar modal de visualização
         function closeExportModal() {
             const modal = document.getElementById('export-modal');
             modal.classList.add('hidden');
-            document.body.style.overflow = 'auto'; // allow page scroll again
+            document.body.style.overflow = 'auto'; // restaura scroll normal do ecrã
             exportActiveRecordId = null;
         }
 
-        // Export active sheet to JPEG in ultra-high resolution
+        // Exportar ficha técnica em alta definição JPEG
         function downloadAsJPEG() {
             const record = productionRecords.find(r => r.id === exportActiveRecordId);
             if (!record) return;
 
-            showToast('Processando download da imagem... Aguarde.', 'info');
+            showToast('A preparar descarregamento da imagem... Aguarde.', 'info');
             
             const element = document.getElementById('print-sheet');
 
-            // Set high quality options for html2canvas to guarantee images look crisp
+            // Configuração para garantir máxima nitidez sem distorcer proporções
             const options = {
                 useCORS: true,
-                scale: 3, // Upscale image x3 for super-high resolution print quality
+                scale: 3, // Multiplicador de escala 3x para evitar imagens desfocadas
                 backgroundColor: '#ffffff',
                 logging: false
             };
@@ -1033,33 +1018,31 @@
                 const imgData = canvas.toDataURL('image/jpeg', 0.95);
                 const link = document.createElement('a');
                 
-                // Formulate beautiful structured filename
                 const safeCrop = record.crop.replace(/[^a-z0-9]/gi, '_').toLowerCase();
                 const safeDate = record.date;
                 link.download = `Relatorio_Tecnico_Producao_${safeCrop}_${safeDate}.jpg`;
                 link.href = imgData;
                 link.click();
                 
-                showToast('JPEG baixado com sucesso!');
+                showToast('JPEG descarregado com sucesso!');
             }).catch(err => {
                 console.error(err);
-                showToast('Erro ao exportar JPEG.', 'error');
+                showToast('Erro ao exportar ficheiro JPEG.', 'error');
             });
         }
 
-        // Export active sheet to PDF in high definition
+        // Exportar ficha técnica em alta definição PDF de tamanho padrão A4
         function downloadAsPDF() {
             const record = productionRecords.find(r => r.id === exportActiveRecordId);
             if (!record) return;
 
-            showToast('Processando download do PDF... Aguarde.', 'info');
+            showToast('A preparar descarregamento do PDF... Aguarde.', 'info');
 
             const element = document.getElementById('print-sheet');
             
-            // Setting high pixel density for beautiful photo visibility inside printed document
             const options = {
                 useCORS: true,
-                scale: 2.5, 
+                scale: 2.5, // Resolução premium para visualização de fotografias no PDF
                 backgroundColor: '#ffffff',
                 logging: false
             };
@@ -1068,23 +1051,23 @@
                 const imgData = canvas.toDataURL('image/jpeg', 1.0);
                 
                 const { jsPDF } = window.jspdf;
-                // A4 Sheet size dimensions: 210 x 297 mm
+                // Dimensões padrão do papel A4 em milímetros (210 x 297 mm)
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 const pdfWidth = 210;
                 const pdfHeight = 297;
                 
-                // Keep image proportions and height correct
+                // Cálculo proporcional da imagem para manter aspect ratio impecável
                 const imgWidth = pdfWidth;
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 
                 let heightLeft = imgHeight;
                 let position = 0;
 
-                // Add canvas to page 1
+                // Página 1
                 pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pdfHeight;
 
-                // Add extra pages if list of images makes it larger than single A4 sheet height
+                // Páginas adicionais caso as imagens expandam o documento verticalmente
                 while (heightLeft >= 0) {
                     position = heightLeft - imgHeight;
                     pdf.addPage();
@@ -1092,12 +1075,11 @@
                     heightLeft -= pdfHeight;
                 }
 
-                // Construct clean file name
                 const safeCrop = record.crop.replace(/[^a-z0-9]/gi, '_').toLowerCase();
                 const safeDate = record.date;
                 pdf.save(`Relatorio_Tecnico_Producao_${safeCrop}_${safeDate}.pdf`);
                 
-                showToast('PDF baixado com sucesso!');
+                showToast('PDF descarregado com sucesso!');
             }).catch(err => {
                 console.error(err);
                 showToast('Erro ao exportar PDF.', 'error');
