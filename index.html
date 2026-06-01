@@ -10,10 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- html2canvas para geração de JPEG -->
+    
+    <!-- Bibliotecas de Exportação -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- jsPDF para geração de PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Chart.js para Gráficos de Barras e Linhas de Tendência -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Plugin Chart.js para exibir Rótulos e Percentagens -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     
     <style>
         body {
@@ -42,7 +47,6 @@
     <header class="bg-gradient-to-r from-emerald-800 to-teal-700 text-white shadow-lg border-b border-emerald-900 sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
-                <!-- Logótipo integrado sem contorno -->
                 <div class="flex items-center justify-center bg-transparent">
                     <img src="https://i.imgur.com/wEozr34.png" alt="Logótipo" class="h-14 w-auto object-contain mix-blend-lighten" onerror="this.onerror=null; this.src='https://placehold.co/120x120/10b981/ffffff?text=Logo';">
                 </div>
@@ -132,6 +136,7 @@
 
                 <!-- Métricas Numéricas -->
                 <div class="space-y-4 pt-2 border-t border-slate-100">
+                    <!-- Linha 1: Canteiros e Total Avaliado -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label for="reg-total-beds" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Total Canteiros *</label>
@@ -139,34 +144,41 @@
                                 class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
                         </div>
                         <div>
-                            <label for="reg-to-harvest" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Total Avaliado (Cabeças) *</label>
-                            <input type="number" id="reg-to-harvest" required min="1" placeholder="0"
+                            <label for="reg-total-evaluated" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Total Avaliado (Cabeças) *</label>
+                            <input type="number" id="reg-total-evaluated" required min="1" placeholder="0"
                                 class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
                         </div>
                     </div>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label for="reg-deformed" class="block text-xs font-bold text-rose-700 uppercase tracking-wider mb-2">Deformadas</label>
+                    <!-- Linha 2: Colheita, Deformadas, Abaixo Peso, Média -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="reg-ready-harvest" class="block text-[10px] font-bold text-emerald-700 uppercase tracking-wider mb-2 truncate">P/ Colheita *</label>
+                            <input type="number" id="reg-ready-harvest" required min="0" placeholder="0" value="0"
+                                class="w-full rounded-xl border border-emerald-200 bg-emerald-50/30 px-3 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
+                        </div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="reg-deformed" class="block text-[10px] font-bold text-rose-700 uppercase tracking-wider mb-2 truncate">Deformadas</label>
                             <input type="number" id="reg-deformed" min="0" placeholder="0" value="0"
-                                class="w-full rounded-xl border border-rose-200 bg-rose-50/30 px-4 py-3 text-slate-800 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 focus:bg-white transition-all outline-none">
+                                class="w-full rounded-xl border border-rose-200 bg-rose-50/30 px-3 py-3 text-slate-800 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 focus:bg-white transition-all outline-none">
                         </div>
-                        <div>
-                            <label for="reg-underweight" class="block text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">Abaixo Peso</label>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="reg-underweight" class="block text-[10px] font-bold text-amber-700 uppercase tracking-wider mb-2 truncate">Abaixo Peso</label>
                             <input type="number" id="reg-underweight" min="0" placeholder="0" value="0"
-                                class="w-full rounded-xl border border-amber-200 bg-amber-50/30 px-4 py-3 text-slate-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all outline-none">
+                                class="w-full rounded-xl border border-amber-200 bg-amber-50/30 px-3 py-3 text-slate-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all outline-none">
                         </div>
-                        <div>
-                            <label for="reg-avg-size" class="block text-xs font-bold text-sky-700 uppercase tracking-wider mb-2">Média Cm *</label>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="reg-avg-size" class="block text-[10px] font-bold text-sky-700 uppercase tracking-wider mb-2 truncate">Média Cm *</label>
                             <input type="number" id="reg-avg-size" step="0.1" required min="0" placeholder="0.0"
-                                class="w-full rounded-xl border border-sky-200 bg-sky-50/30 px-4 py-3 text-slate-800 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:bg-white transition-all outline-none">
+                                class="w-full rounded-xl border border-sky-200 bg-sky-50/30 px-3 py-3 text-slate-800 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:bg-white transition-all outline-none">
                         </div>
                     </div>
                 </div>
 
-                <!-- Anexar Fotos por Categorias (3 Áreas dedicadas) -->
+                <!-- Anexar Fotos por Categorias -->
                 <div class="space-y-4 pt-3 border-t border-slate-100">
                     <span class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Áreas de Anexos Fotográficos</span>
+                    <p class="text-[10px] text-slate-500 mb-2">Pode selecionar múltiplas fotos de uma vez ou clicar repetidamente para adicionar mais.</p>
                     
                     <!-- Categoria 1: Deformadas -->
                     <div class="space-y-2">
@@ -174,7 +186,7 @@
                         <div onclick="triggerFileInput('deformed')" class="border border-dashed border-rose-300 rounded-xl p-3 text-center cursor-pointer hover:bg-rose-50/30 transition-all flex flex-col items-center justify-center">
                             <input type="file" id="photos-deformed-input" multiple accept="image/*" class="hidden" onchange="handlePhotoCategorySelect(event, 'deformed')">
                             <i class="fa-solid fa-triangle-exclamation text-rose-500 mb-1"></i>
-                            <span class="text-[10px] font-bold text-slate-600">Adicionar Fotos (Deformadas)</span>
+                            <span class="text-[10px] font-bold text-slate-600">Clique para anexar foto(s)</span>
                         </div>
                         <div id="preview-deformed" class="grid grid-cols-4 gap-2 empty:hidden"></div>
                     </div>
@@ -185,18 +197,18 @@
                         <div onclick="triggerFileInput('underweight')" class="border border-dashed border-amber-300 rounded-xl p-3 text-center cursor-pointer hover:bg-amber-50/30 transition-all flex flex-col items-center justify-center">
                             <input type="file" id="photos-underweight-input" multiple accept="image/*" class="hidden" onchange="handlePhotoCategorySelect(event, 'underweight')">
                             <i class="fa-solid fa-weight-hanging text-amber-500 mb-1"></i>
-                            <span class="text-[10px] font-bold text-slate-600">Adicionar Fotos (Abaixo do Peso)</span>
+                            <span class="text-[10px] font-bold text-slate-600">Clique para anexar foto(s)</span>
                         </div>
                         <div id="preview-underweight" class="grid grid-cols-4 gap-2 empty:hidden"></div>
                     </div>
 
                     <!-- Categoria 3: Cabeças a Colher (Boas) -->
                     <div class="space-y-2">
-                        <label class="block text-[11px] font-bold text-emerald-700 uppercase tracking-wider">3. Fotos de Cabeças a Colher (Padrão)</label>
+                        <label class="block text-[11px] font-bold text-emerald-700 uppercase tracking-wider">3. Fotos de Cabeças a Colher</label>
                         <div onclick="triggerFileInput('harvest')" class="border border-dashed border-emerald-300 rounded-xl p-3 text-center cursor-pointer hover:bg-emerald-50/30 transition-all flex flex-col items-center justify-center">
                             <input type="file" id="photos-harvest-input" multiple accept="image/*" class="hidden" onchange="handlePhotoCategorySelect(event, 'harvest')">
                             <i class="fa-solid fa-circle-check text-emerald-500 mb-1"></i>
-                            <span class="text-[10px] font-bold text-slate-600">Adicionar Fotos (Padrão Comercial)</span>
+                            <span class="text-[10px] font-bold text-slate-600">Clique para anexar foto(s)</span>
                         </div>
                         <div id="preview-harvest" class="grid grid-cols-4 gap-2 empty:hidden"></div>
                     </div>
@@ -231,7 +243,7 @@
             </div>
 
             <!-- Lista de Registos -->
-            <div id="records-list" class="flex-grow space-y-4 overflow-y-auto max-h-[850px] pr-2">
+            <div id="records-list" class="flex-grow space-y-4 overflow-y-auto max-h-[850px] pr-2 pb-4">
                 <!-- Estado vazio apresentado por defeito se não existirem registos -->
                 <div id="empty-state" class="flex flex-col items-center justify-center py-20 text-center space-y-4">
                     <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-300">
@@ -325,29 +337,24 @@
                         </div>
                     </div>
 
-                    <!-- Bloco Estatístico da Diretoria (Gráfico de Pizza + Flashcards Centrados) -->
+                    <!-- Bloco Estatístico (Gráfico de Barras e Métricas) -->
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-slate-50/50 p-6 rounded-3xl border border-slate-200">
                         <!-- Lado do Gráfico -->
-                        <div class="md:col-span-5 flex flex-col items-center justify-center text-center">
-                            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Composição de Qualidade (%)</h4>
-                            <div id="print-chart-container" class="relative w-40 h-40 rounded-full flex items-center justify-center shadow-md">
-                                <!-- Donut Chart será renderizado via script -->
-                            </div>
-                            <div class="flex gap-4 mt-4 text-[10px] font-bold flex-wrap justify-center">
-                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Conforme</span>
-                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Sub-peso</span>
-                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Deformada</span>
+                        <div class="md:col-span-7 flex flex-col items-center justify-center text-center h-52">
+                            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 w-full text-left">Distribuição de Qualidade</h4>
+                            <div class="w-full h-full relative">
+                                <canvas id="print-chart-canvas"></canvas>
                             </div>
                         </div>
 
                         <!-- Lado das Métricas -->
-                        <div class="md:col-span-7 grid grid-cols-2 gap-3">
-                            <div class="bg-white border border-slate-200 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
+                        <div class="md:col-span-5 grid grid-cols-2 gap-3">
+                            <div class="bg-white border border-slate-200 p-3 rounded-2xl flex flex-col items-center justify-center text-center col-span-2">
                                 <span class="text-[9px] text-slate-400 font-bold uppercase block leading-tight text-center w-full">Total Avaliado</span>
                                 <p id="print-total-canteiros" class="text-lg font-black text-slate-800 mt-1 text-center w-full">0</p>
                             </div>
                             <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
-                                <span class="text-[9px] text-emerald-600 font-bold uppercase block leading-tight text-center w-full">Conformes</span>
+                                <span class="text-[9px] text-emerald-600 font-bold uppercase block leading-tight text-center w-full">Para Colheita</span>
                                 <p id="print-colher" class="text-lg font-black text-emerald-700 mt-1 text-center w-full">0</p>
                             </div>
                             <div class="bg-rose-50 border border-rose-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
@@ -358,9 +365,9 @@
                                 <span class="text-[9px] text-amber-600 font-bold uppercase block leading-tight text-center w-full">Abaixo Peso</span>
                                 <p id="print-abaixo-peso" class="text-lg font-black text-amber-600 mt-1 text-center w-full">0</p>
                             </div>
-                            <div class="col-span-2 bg-sky-50 border border-sky-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
-                                <span class="text-[9px] text-sky-600 font-bold uppercase block leading-tight text-center w-full">Média de Calibre</span>
-                                <p id="print-media-cm" class="text-lg font-black text-sky-700 mt-1 text-center w-full">0.0 cm</p>
+                            <div class="bg-sky-50 border border-sky-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-sky-600 font-bold uppercase block leading-tight text-center w-full">Média (cm)</span>
+                                <p id="print-media-cm" class="text-lg font-black text-sky-700 mt-1 text-center w-full">0.0</p>
                             </div>
                         </div>
                     </div>
@@ -417,10 +424,17 @@
     </footer>
 
     <script>
+        // Registar Plugin DataLabels para o Chart.js
+        Chart.register(ChartDataLabels);
+
         // Variáveis de Estado Global
         let productionRecords = [];
         let editingRecordId = null; 
         let exportActiveRecordId = null; 
+        
+        // Instâncias de gráficos
+        let chartInstances = {};
+        let printChartInstance = null;
 
         // Listas temporárias de imagens base64 carregadas no formulário
         let currentPhotosDeformed = [];
@@ -430,7 +444,7 @@
         // Inicialização da Aplicação
         window.addEventListener('DOMContentLoaded', () => {
             // Carregar do LocalStorage
-            const saved = localStorage.getItem('reg_prod_records_v3');
+            const saved = localStorage.getItem('reg_prod_records_v4');
             if (saved) {
                 try {
                     productionRecords = JSON.parse(saved);
@@ -506,7 +520,7 @@
             }
         }
 
-        // Processar seleção de imagens específicas por categoria
+        // Processar seleção de imagens específicas por categoria (aceita múltiplas imagens de forma incremental)
         function handlePhotoCategorySelect(event, category) {
             const files = event.target.files;
             if (!files || files.length === 0) return;
@@ -517,6 +531,8 @@
             Array.from(files).forEach(file => {
                 if (!file.type.startsWith('image/')) {
                     showToast('Selecione apenas ficheiros de imagem válidos.', 'error');
+                    processedCount++;
+                    checkDone();
                     return;
                 }
 
@@ -532,12 +548,18 @@
                     }
 
                     processedCount++;
-                    if (processedCount === targetCount) {
-                        renderPhotoPreviewsForCategory(category);
-                    }
+                    checkDone();
                 };
                 reader.readAsDataURL(file);
             });
+
+            function checkDone() {
+                if (processedCount === targetCount) {
+                    renderPhotoPreviewsForCategory(category);
+                    // Reset input value to allow selecting the same file again and trigger change
+                    event.target.value = ''; 
+                }
+            }
         }
 
         // Renderizar miniaturas dinâmicas das fotos por categorias no formulário
@@ -647,15 +669,11 @@
             }
 
             const totalBeds = parseInt(document.getElementById('reg-total-beds').value) || 0;
-            const totalEvaluated = parseInt(document.getElementById('reg-to-harvest').value) || 0;
+            const totalEvaluated = parseInt(document.getElementById('reg-total-evaluated').value) || 0;
+            const readyHarvest = parseInt(document.getElementById('reg-ready-harvest').value) || 0;
             const deformedVal = parseInt(document.getElementById('reg-deformed').value) || 0;
             const underweightVal = parseInt(document.getElementById('reg-underweight').value) || 0;
             const avgSize = parseFloat(document.getElementById('reg-avg-size').value) || 0.0;
-
-            if (deformedVal + underweightVal > totalEvaluated) {
-                showToast('A soma de perdas não pode ultrapassar o total avaliado.', 'error');
-                return;
-            }
 
             if (editingRecordId !== null) {
                 // Modo Edição
@@ -668,7 +686,8 @@
                         block: finalBlock,
                         crop: finalCrop,
                         totalBeds: totalBeds,
-                        toHarvest: totalEvaluated, // Total de cabeças avaliadas
+                        totalEvaluated: totalEvaluated,
+                        readyHarvest: readyHarvest,
                         deformed: deformedVal,
                         underweight: underweightVal,
                         avgSize: avgSize,
@@ -691,7 +710,8 @@
                     block: finalBlock,
                     crop: finalCrop,
                     totalBeds: totalBeds,
-                    toHarvest: totalEvaluated,
+                    totalEvaluated: totalEvaluated,
+                    readyHarvest: readyHarvest,
                     deformed: deformedVal,
                     underweight: underweightVal,
                     avgSize: avgSize,
@@ -774,10 +794,17 @@
                 document.getElementById('reg-crop-custom').value = record.crop;
             }
 
-            document.getElementById('reg-total-beds').value = record.totalBeds;
-            document.getElementById('reg-to-harvest').value = record.toHarvest;
-            document.getElementById('reg-deformed').value = record.deformed;
-            document.getElementById('reg-underweight').value = record.underweight;
+            document.getElementById('reg-total-beds').value = record.totalBeds || 0;
+            // Backwards compatibility para registos antigos
+            const evaluated = record.totalEvaluated || record.toHarvest || 0;
+            const deformedVal = record.deformed || 0;
+            const underweightVal = record.underweight || 0;
+            const readyVal = record.readyHarvest !== undefined ? record.readyHarvest : Math.max(0, evaluated - deformedVal - underweightVal);
+
+            document.getElementById('reg-total-evaluated').value = evaluated;
+            document.getElementById('reg-ready-harvest').value = readyVal;
+            document.getElementById('reg-deformed').value = deformedVal;
+            document.getElementById('reg-underweight').value = underweightVal;
             document.getElementById('reg-avg-size').value = record.avgSize;
 
             currentPhotosDeformed = [...(record.photosDeformed || [])];
@@ -800,6 +827,10 @@
                 'delete',
                 () => {
                     productionRecords = productionRecords.filter(r => r.id !== id);
+                    if(chartInstances[id]) {
+                        chartInstances[id].destroy();
+                        delete chartInstances[id];
+                    }
                     saveToLocalStorage();
                     renderRecords();
                     updateStatsBadges();
@@ -814,7 +845,7 @@
 
         // Guardar lista localmente
         function saveToLocalStorage() {
-            localStorage.setItem('reg_prod_records_v3', JSON.stringify(productionRecords));
+            localStorage.setItem('reg_prod_records_v4', JSON.stringify(productionRecords));
         }
 
         // Exibir Notificações Toast no Ecrã
@@ -882,14 +913,13 @@
             };
         }
 
-        // Renderizar todos os cartões de histórico (Foco na centralização das métricas e no gráfico analítico)
+        // Renderizar todos os cartões de histórico com Gráfico de Barras Chart.js
         function renderRecords(recordsToRender = productionRecords) {
             const listContainer = document.getElementById('records-list');
             const emptyState = document.getElementById('empty-state');
             
             if (!listContainer) return;
 
-            // Limpar elementos antigos sem interferir com o empty-state
             const cards = listContainer.querySelectorAll('.record-card');
             cards.forEach(card => card.remove());
 
@@ -906,27 +936,17 @@
                 const parts = record.date.split('-');
                 const formattedDate = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : record.date;
 
-                // Cálculo das percentagens operacionais para o gráfico de pizza do cartão
-                const total = record.toHarvest || 1;
+                // Extração dos dados e fallback para registos anteriores
+                const totalEvaluated = record.totalEvaluated || record.toHarvest || 1;
                 const deformedCount = record.deformed || 0;
                 const underweightCount = record.underweight || 0;
-                const perfectCount = Math.max(0, total - deformedCount - underweightCount);
+                const readyHarvestCount = record.readyHarvest !== undefined ? record.readyHarvest : Math.max(0, totalEvaluated - deformedCount - underweightCount);
 
-                const percentPerfect = Math.round((perfectCount / total) * 100);
-                const percentDeformed = Math.round((deformedCount / total) * 100);
-                const percentUnderweight = Math.round((underweightCount / total) * 100);
-
-                // Geração dinâmica de gráfico donut com conic-gradient
-                const donutGradient = `conic-gradient(
-                    #10b981 0% ${percentPerfect}%, 
-                    #f59e0b ${percentPerfect}% ${percentPerfect + percentUnderweight}%, 
-                    #f43f5e ${percentPerfect + percentUnderweight}% 100%
-                )`;
-
-                // Contagem total de fotografias anexadas
                 const totalPhotos = (record.photosDeformed?.length || 0) + 
                                     (record.photosUnderweight?.length || 0) + 
                                     (record.photosToHarvest?.length || 0);
+
+                const chartCanvasId = `chart-${record.id}`;
 
                 card.innerHTML = `
                     <div class="flex justify-between items-start flex-wrap gap-2">
@@ -965,50 +985,44 @@
                         </div>
                     </div>
 
-                    <!-- Zona Analítica (Gráfico de Pizza + Flashcards Centrados) -->
+                    <!-- Zona Analítica (Gráfico de Barras + Flashcards) -->
                     <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-white p-4 rounded-2xl border border-slate-100">
                         
-                        <!-- Mini Gráfico Circular para Diretoria -->
-                        <div class="sm:col-span-4 flex flex-col items-center justify-center text-center py-2">
-                            <div class="relative w-24 h-24 rounded-full flex items-center justify-center shadow-inner" style="background: ${donutGradient};">
-                                <div class="absolute w-16 h-16 bg-white rounded-full flex flex-col items-center justify-center shadow-sm">
-                                    <span class="text-[9px] font-bold text-slate-400 uppercase">Aprov.</span>
-                                    <span class="text-xs font-black text-emerald-600">${percentPerfect}%</span>
-                                </div>
-                            </div>
-                            <span class="text-[9px] text-slate-400 font-bold uppercase mt-1.5 block">Inspeção de Campo</span>
+                        <!-- Gráfico de Barras com Linha de Tendência -->
+                        <div class="sm:col-span-6 w-full h-40 relative">
+                            <canvas id="${chartCanvasId}"></canvas>
                         </div>
 
-                        <!-- Flashcards de Dados Rigorosamente Centrados -->
-                        <div class="sm:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-2">
-                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center w-full">
-                                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Canteiros</span>
-                                <span class="text-xs font-extrabold text-slate-700 text-center block w-full">${record.totalBeds}</span>
+                        <!-- Flashcards de Dados -->
+                        <div class="sm:col-span-6 grid grid-cols-2 gap-2">
+                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block mb-1">Canteiros</span>
+                                <span class="text-xs font-extrabold text-slate-700">${record.totalBeds}</span>
                             </div>
-                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center w-full">
-                                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Avaliado</span>
-                                <span class="text-xs font-extrabold text-slate-700 text-center block w-full">${record.toHarvest}</span>
+                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block mb-1">Avaliado</span>
+                                <span class="text-xs font-extrabold text-slate-700">${totalEvaluated}</span>
                             </div>
-                            <div class="bg-emerald-50/55 p-2 rounded-xl border border-emerald-100 flex flex-col items-center justify-center text-center w-full">
-                                <span class="text-[9px] text-emerald-600 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Conformes</span>
-                                <span class="text-xs font-extrabold text-emerald-700 text-center block w-full">${perfectCount}</span>
+                            <div class="bg-emerald-50/55 p-2 rounded-xl border border-emerald-100 flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-emerald-600 font-bold uppercase tracking-wider block mb-1">P/ Colheita</span>
+                                <span class="text-xs font-extrabold text-emerald-700">${readyHarvestCount}</span>
                             </div>
-                            <div class="bg-rose-50/55 p-2 rounded-xl border border-rose-100 flex flex-col items-center justify-center text-center w-full">
-                                <span class="text-[9px] text-rose-600 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Deformadas</span>
-                                <span class="text-xs font-extrabold text-rose-600 text-center block w-full">${deformedCount}</span>
+                            <div class="bg-rose-50/55 p-2 rounded-xl border border-rose-100 flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-rose-600 font-bold uppercase tracking-wider block mb-1">Deformadas</span>
+                                <span class="text-xs font-extrabold text-rose-600">${deformedCount}</span>
                             </div>
-                            <div class="bg-amber-50/55 p-2 rounded-xl border border-amber-100 flex flex-col items-center justify-center text-center w-full">
-                                <span class="text-[9px] text-amber-600 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Sub-peso</span>
-                                <span class="text-xs font-extrabold text-amber-600 text-center block w-full">${underweightCount}</span>
+                            <div class="bg-amber-50/55 p-2 rounded-xl border border-amber-100 flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-amber-600 font-bold uppercase tracking-wider block mb-1">Sub-peso</span>
+                                <span class="text-xs font-extrabold text-amber-600">${underweightCount}</span>
                             </div>
-                            <div class="bg-sky-50/55 p-2 rounded-xl border border-sky-100 flex flex-col items-center justify-center text-center w-full">
-                                <span class="text-[9px] text-sky-600 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Média Cm</span>
-                                <span class="text-xs font-extrabold text-sky-700 text-center block w-full">${Number(record.avgSize).toFixed(1)}</span>
+                            <div class="bg-sky-50/55 p-2 rounded-xl border border-sky-100 flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-sky-600 font-bold uppercase tracking-wider block mb-1">Média Cm</span>
+                                <span class="text-xs font-extrabold text-sky-700">${Number(record.avgSize).toFixed(1)}</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Fotografias por Categoria (Pré-visualização Rápida) -->
+                    <!-- Fotografias por Categoria -->
                     ${totalPhotos > 0 ? `
                         <div class="pt-2 border-t border-slate-200/60 flex flex-col gap-2">
                             <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Registos de Evidências (${totalPhotos})</span>
@@ -1025,7 +1039,7 @@
                                 ` : ''}
                                 ${record.photosToHarvest && record.photosToHarvest.length > 0 ? `
                                     <div class="flex items-center gap-1 bg-emerald-50 border border-emerald-100 px-2 py-1 rounded-lg text-[9px] font-bold text-emerald-700">
-                                        <i class="fa-solid fa-circle-check"></i> Conformes (${record.photosToHarvest.length})
+                                        <i class="fa-solid fa-circle-check"></i> Colheita (${record.photosToHarvest.length})
                                     </div>
                                 ` : ''}
                             </div>
@@ -1033,6 +1047,81 @@
                     ` : ''}
                 `;
                 listContainer.appendChild(card);
+            });
+
+            // Inicializar os gráficos após renderizar o HTML
+            recordsToRender.forEach(record => {
+                const ctx = document.getElementById(`chart-${record.id}`);
+                if (!ctx) return;
+
+                if (chartInstances[record.id]) {
+                    chartInstances[record.id].destroy();
+                }
+
+                const totalEvaluated = record.totalEvaluated || record.toHarvest || 1;
+                const deformedCount = record.deformed || 0;
+                const underweightCount = record.underweight || 0;
+                const readyHarvestCount = record.readyHarvest !== undefined ? record.readyHarvest : Math.max(0, totalEvaluated - deformedCount - underweightCount);
+
+                const dataValues = [readyHarvestCount, deformedCount, underweightCount];
+                
+                chartInstances[record.id] = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Colheita', 'Deformadas', 'Sub-peso'],
+                        datasets: [
+                            {
+                                type: 'line',
+                                label: 'Tendência',
+                                data: dataValues,
+                                borderColor: '#3b82f6',
+                                borderWidth: 2,
+                                tension: 0.3,
+                                fill: false,
+                                pointBackgroundColor: '#3b82f6',
+                                pointRadius: 4,
+                                order: 1, // Draw on top
+                                datalabels: {
+                                    display: false // Ocultar labels na linha para não duplicar
+                                }
+                            },
+                            {
+                                type: 'bar',
+                                label: 'Quantidade',
+                                data: dataValues,
+                                backgroundColor: ['#10b981', '#f43f5e', '#f59e0b'],
+                                borderRadius: 4,
+                                barPercentage: 0.6,
+                                order: 2
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { enabled: false }, // Simplificar ui sem tooltips nativos se desejado, ou deixar enabled
+                            datalabels: {
+                                anchor: 'end',
+                                align: 'top',
+                                formatter: (value, context) => {
+                                    if(value === 0) return '0\n(0%)';
+                                    const percentage = ((value / totalEvaluated) * 100).toFixed(1) + '%';
+                                    return `${value}\n(${percentage})`;
+                                },
+                                font: { size: 9, weight: 'bold', family: 'Inter' },
+                                textAlign: 'center',
+                                color: '#475569'
+                            }
+                        },
+                        scales: {
+                            y: { display: false, beginAtZero: true, suggestedMax: Math.max(...dataValues) * 1.3 }, // Espaço para os labels
+                            x: { grid: { display: false }, ticks: { font: { size: 10, family: 'Inter' } }, border: {display: false} }
+                        },
+                        layout: { padding: { top: 25 } }
+                    }
+                });
             });
         }
 
@@ -1066,22 +1155,18 @@
             document.getElementById('print-semana').innerText = record.week;
             document.getElementById('print-bloco').innerText = record.block;
             document.getElementById('print-cultura').innerText = record.crop;
-            document.getElementById('print-total-canteiros').innerText = record.toHarvest;
             
             // Cálculos
-            const total = record.toHarvest || 1;
+            const totalEvaluated = record.totalEvaluated || record.toHarvest || 1;
             const deformedVal = record.deformed || 0;
             const underweightVal = record.underweight || 0;
-            const perfectVal = Math.max(0, total - deformedVal - underweightVal);
+            const readyVal = record.readyHarvest !== undefined ? record.readyHarvest : Math.max(0, totalEvaluated - deformedVal - underweightVal);
 
-            const pctPerfect = Math.round((perfectVal / total) * 100);
-            const pctUnderweight = Math.round((underweightVal / total) * 100);
-            const pctDeformed = Math.round((deformedVal / total) * 100);
-
-            document.getElementById('print-colher').innerText = perfectVal;
+            document.getElementById('print-total-canteiros').innerText = totalEvaluated;
+            document.getElementById('print-colher').innerText = readyVal;
             document.getElementById('print-deformadas').innerText = deformedVal;
             document.getElementById('print-abaixo-peso').innerText = underweightVal;
-            document.getElementById('print-media-cm').innerText = `${Number(record.avgSize).toFixed(1)} cm`;
+            document.getElementById('print-media-cm').innerText = `${Number(record.avgSize).toFixed(1)}`;
 
             // Data e hora de emissão do relatório
             const now = new Date();
@@ -1089,24 +1174,71 @@
             const timeStr = now.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
             document.getElementById('print-sheet-timestamp').innerText = `${dateStr} às ${timeStr}`;
 
-            // Renderizar Gráfico de Pizza (Donut) no documento oficial
-            const chartContainer = document.getElementById('print-chart-container');
-            if (chartContainer) {
-                const donutGradient = `conic-gradient(
-                    #10b981 0% ${pctPerfect}%, 
-                    #f59e0b ${pctPerfect}% ${pctPerfect + pctUnderweight}%, 
-                    #f43f5e ${pctPerfect + pctUnderweight}% 100%
-                )`;
-                chartContainer.style.background = donutGradient;
-                chartContainer.innerHTML = `
-                    <div class="absolute w-28 h-28 bg-white rounded-full flex flex-col items-center justify-center shadow-inner">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Aproveitado</span>
-                        <span class="text-xl font-black text-emerald-600">${pctPerfect}%</span>
-                    </div>
-                `;
+            // Renderizar Gráfico de Barras com Linha de Tendência no Documento Oficial
+            const ctxPrint = document.getElementById('print-chart-canvas');
+            if(printChartInstance) {
+                printChartInstance.destroy();
             }
 
-            // Renderizar categorias de fotos de forma proporcional (sem distorcer)
+            const dataValues = [readyVal, deformedVal, underweightVal];
+            
+            printChartInstance = new Chart(ctxPrint, {
+                type: 'bar',
+                data: {
+                    labels: ['Para Colheita', 'Deformadas', 'Abaixo do Peso'],
+                    datasets: [
+                        {
+                            type: 'line',
+                            label: 'Tendência',
+                            data: dataValues,
+                            borderColor: '#3b82f6',
+                            borderWidth: 2.5,
+                            tension: 0.3,
+                            fill: false,
+                            pointBackgroundColor: '#3b82f6',
+                            pointRadius: 5,
+                            order: 1,
+                            datalabels: { display: false }
+                        },
+                        {
+                            type: 'bar',
+                            label: 'Quantidades',
+                            data: dataValues,
+                            backgroundColor: ['#10b981', '#f43f5e', '#f59e0b'],
+                            borderRadius: 6,
+                            barPercentage: 0.5,
+                            order: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: false, // Fundamental para o html2canvas conseguir capturar o gráfico já renderizado
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: (value) => {
+                                if(value === 0) return '0\n(0%)';
+                                const percentage = ((value / totalEvaluated) * 100).toFixed(1) + '%';
+                                return `${value}\n(${percentage})`;
+                            },
+                            font: { size: 11, weight: 'bold', family: 'Inter' },
+                            textAlign: 'center',
+                            color: '#334155'
+                        }
+                    },
+                    scales: {
+                        y: { display: false, beginAtZero: true, suggestedMax: Math.max(...dataValues) * 1.3 },
+                        x: { grid: { display: false }, ticks: { font: { size: 12, weight: '600', family: 'Inter' } }, border: {display: false} }
+                    },
+                    layout: { padding: { top: 35 } }
+                }
+            });
+
+            // Renderizar categorias de fotos de forma proporcional
             renderPrintPhotoCategory('print-photos-deformed', 'print-category-deformed-section', record.photosDeformed, 'Frente de Anomalia (Deformada)');
             renderPrintPhotoCategory('print-photos-underweight', 'print-category-underweight-section', record.photosUnderweight, 'Frente de Baixo Peso');
             renderPrintPhotoCategory('print-photos-harvest', 'print-category-harvest-section', record.photosToHarvest, 'Padrão Comercial Colhido');
@@ -1130,7 +1262,6 @@
                 list.forEach((base64, idx) => {
                     const item = document.createElement('div');
                     item.className = "flex flex-col items-center justify-center p-3 bg-white border border-slate-200 rounded-2xl";
-                    // Utilização de max-h fluidos e object-contain impede achatamento na folha de impressão e PDFs
                     item.innerHTML = `
                         <div class="w-full flex items-center justify-center bg-slate-50 p-2 rounded-xl" style="height: 240px; overflow: hidden;">
                             <img src="${base64}" class="max-w-full max-h-[220px] w-auto h-auto object-contain mx-auto block rounded-lg">
@@ -1164,23 +1295,25 @@
             const element = document.getElementById('print-sheet');
             const options = {
                 useCORS: true,
-                scale: 3, // escala aumentada para alta definição
+                scale: 3, 
                 backgroundColor: '#ffffff',
                 logging: false
             };
 
-            html2canvas(element, options).then(canvas => {
-                const imgData = canvas.toDataURL('image/jpeg', 0.95);
-                const link = document.createElement('a');
-                const safeCrop = record.crop.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                link.download = `Relatorio_Operacional_${safeCrop}_${record.date}.jpg`;
-                link.href = imgData;
-                link.click();
-                showToast('Ficha de Produção descarregada em JPEG!');
-            }).catch(err => {
-                console.error(err);
-                showToast('Erro técnico ao renderizar o JPEG.', 'error');
-            });
+            setTimeout(() => {
+                html2canvas(element, options).then(canvas => {
+                    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                    const link = document.createElement('a');
+                    const safeCrop = record.crop.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                    link.download = `Relatorio_Operacional_${safeCrop}_${record.date}.jpg`;
+                    link.href = imgData;
+                    link.click();
+                    showToast('Ficha de Produção descarregada em JPEG!');
+                }).catch(err => {
+                    console.error(err);
+                    showToast('Erro técnico ao renderizar o JPEG.', 'error');
+                });
+            }, 300); // pequeno delay para garantir que o chart finalizou pintura (embora animation seja false)
         }
 
         // Exportação impecável para documento PDF de tamanho padrão A4
@@ -1198,38 +1331,39 @@
                 logging: false
             };
 
-            html2canvas(element, options).then(canvas => {
-                const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                const { jsPDF } = window.jspdf;
-                
-                // Formato padrão A4
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const pdfWidth = 210;
-                const pdfHeight = 297;
-                
-                const imgWidth = pdfWidth;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                
-                let heightLeft = imgHeight;
-                let position = 0;
+            setTimeout(() => {
+                html2canvas(element, options).then(canvas => {
+                    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    const { jsPDF } = window.jspdf;
+                    
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const pdfWidth = 210;
+                    const pdfHeight = 297;
+                    
+                    const imgWidth = pdfWidth;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    let heightLeft = imgHeight;
+                    let position = 0;
 
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pdfHeight;
-
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
                     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                     heightLeft -= pdfHeight;
-                }
 
-                const safeCrop = record.crop.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                pdf.save(`Relatorio_Operacional_${safeCrop}_${record.date}.pdf`);
-                showToast('PDF Técnico descarregado com sucesso!');
-            }).catch(err => {
-                console.error(err);
-                showToast('Erro técnico ao compilar o PDF.', 'error');
-            });
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pdfHeight;
+                    }
+
+                    const safeCrop = record.crop.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                    pdf.save(`Relatorio_Operacional_${safeCrop}_${record.date}.pdf`);
+                    showToast('PDF Técnico descarregado com sucesso!');
+                }).catch(err => {
+                    console.error(err);
+                    showToast('Erro técnico ao compilar o PDF.', 'error');
+                });
+            }, 300);
         }
     </script>
 </body>
