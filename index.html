@@ -48,7 +48,7 @@
                 </div>
                 <div>
                     <h1 class="text-2xl font-extrabold tracking-tight">Registo Técnico Produção</h1>
-                    <p class="text-emerald-100 text-sm font-medium tracking-wide">Resumo Operacional</p>
+                    <p class="text-emerald-100 text-sm font-medium tracking-wide">Resumo Operacional para Diretoria</p>
                 </div>
             </div>
             <!-- Painel de estatísticas rápidas -->
@@ -84,10 +84,8 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label for="reg-date" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Data *</label>
-                        <div class="relative">
-                            <input type="date" id="reg-date" required
-                                class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
-                        </div>
+                        <input type="date" id="reg-date" required
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
                     </div>
                     <div>
                         <label for="reg-week" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Semana (Automática)</label>
@@ -102,7 +100,6 @@
                     <select id="reg-block" required onchange="toggleBlockCustomInput(this.value)"
                         class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
                         <option value="" disabled selected>Selecione o Bloco</option>
-                        <!-- Geração dinâmica dos blocos de 01 a 18 -->
                         <script>
                             for(let i=1; i<=18; i++) {
                                 const num = String(i).padStart(2, '0');
@@ -111,8 +108,7 @@
                         </script>
                         <option value="Outros">Outros (Digitar)</option>
                     </select>
-                    <!-- Campo para digitação de bloco alternativo -->
-                    <div id="block-custom-container" class="hidden mt-2 animate-fadeIn">
+                    <div id="block-custom-container" class="hidden mt-2">
                         <input type="text" id="reg-block-custom" placeholder="Digite a identificação do bloco..."
                             class="w-full rounded-xl border border-emerald-300 bg-emerald-50/30 px-4 py-3 text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all">
                     </div>
@@ -128,8 +124,7 @@
                         <option value="Couve flor">Couve flor</option>
                         <option value="Outros">Outros (Digitar)</option>
                     </select>
-                    <!-- Campo para digitação de cultura alternativa -->
-                    <div id="crop-custom-container" class="hidden mt-2 animate-fadeIn">
+                    <div id="crop-custom-container" class="hidden mt-2">
                         <input type="text" id="reg-crop-custom" placeholder="Digite o nome da cultura..."
                             class="w-full rounded-xl border border-emerald-300 bg-emerald-50/30 px-4 py-3 text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all">
                     </div>
@@ -140,50 +135,70 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label for="reg-total-beds" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Total Canteiros *</label>
-                            <input type="number" id="reg-total-beds" required min="0" placeholder="0"
+                            <input type="number" id="reg-total-beds" required min="1" placeholder="0"
                                 class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
                         </div>
                         <div>
-                            <label for="reg-to-harvest" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Cabeças a Colher *</label>
-                            <input type="number" id="reg-to-harvest" required min="0" placeholder="0"
+                            <label for="reg-to-harvest" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Total Avaliado (Cabeças) *</label>
+                            <input type="number" id="reg-to-harvest" required min="1" placeholder="0"
                                 class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
                         </div>
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
-                            <label for="reg-deformed" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Cab. Deformadas</label>
-                            <input type="number" id="reg-deformed" min="0" placeholder="0"
-                                class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
+                            <label for="reg-deformed" class="block text-xs font-bold text-rose-700 uppercase tracking-wider mb-2">Deformadas</label>
+                            <input type="number" id="reg-deformed" min="0" placeholder="0" value="0"
+                                class="w-full rounded-xl border border-rose-200 bg-rose-50/30 px-4 py-3 text-slate-800 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 focus:bg-white transition-all outline-none">
                         </div>
                         <div>
-                            <label for="reg-underweight" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Abaixo do Peso</label>
-                            <input type="number" id="reg-underweight" min="0" placeholder="0"
-                                class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
+                            <label for="reg-underweight" class="block text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">Abaixo Peso</label>
+                            <input type="number" id="reg-underweight" min="0" placeholder="0" value="0"
+                                class="w-full rounded-xl border border-amber-200 bg-amber-50/30 px-4 py-3 text-slate-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all outline-none">
                         </div>
                         <div>
-                            <label for="reg-avg-size" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Média Cm *</label>
+                            <label for="reg-avg-size" class="block text-xs font-bold text-sky-700 uppercase tracking-wider mb-2">Média Cm *</label>
                             <input type="number" id="reg-avg-size" step="0.1" required min="0" placeholder="0.0"
-                                class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
+                                class="w-full rounded-xl border border-sky-200 bg-sky-50/30 px-4 py-3 text-slate-800 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:bg-white transition-all outline-none">
                         </div>
                     </div>
                 </div>
 
-                <!-- Anexar Fotos -->
-                <div class="space-y-2 pt-2 border-t border-slate-100">
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Anexar Fotos de Campo</label>
-                    <div id="drop-zone" class="border-2 border-dashed border-slate-200 rounded-2xl p-6 text-center cursor-pointer hover:border-emerald-500 hover:bg-emerald-50/20 transition-all flex flex-col items-center justify-center group">
-                        <input type="file" id="reg-photos" multiple accept="image/*" class="hidden" onchange="handlePhotoSelect(event)">
-                        <div class="p-3 bg-emerald-50 rounded-full group-hover:scale-110 transition-transform duration-200">
-                            <i class="fa-solid fa-cloud-arrow-up text-xl text-emerald-600"></i>
+                <!-- Anexar Fotos por Categorias (3 Áreas dedicadas) -->
+                <div class="space-y-4 pt-3 border-t border-slate-100">
+                    <span class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Áreas de Anexos Fotográficos</span>
+                    
+                    <!-- Categoria 1: Deformadas -->
+                    <div class="space-y-2">
+                        <label class="block text-[11px] font-bold text-rose-700 uppercase tracking-wider">1. Fotos de Cabeças Deformadas</label>
+                        <div onclick="triggerFileInput('deformed')" class="border border-dashed border-rose-300 rounded-xl p-3 text-center cursor-pointer hover:bg-rose-50/30 transition-all flex flex-col items-center justify-center">
+                            <input type="file" id="photos-deformed-input" multiple accept="image/*" class="hidden" onchange="handlePhotoCategorySelect(event, 'deformed')">
+                            <i class="fa-solid fa-triangle-exclamation text-rose-500 mb-1"></i>
+                            <span class="text-[10px] font-bold text-slate-600">Adicionar Fotos (Deformadas)</span>
                         </div>
-                        <p class="text-xs font-bold text-slate-700 mt-2">Clique para selecionar ou arraste as fotos</p>
-                        <p class="text-[10px] text-slate-400 mt-1">Imagens no formato JPG ou PNG</p>
+                        <div id="preview-deformed" class="grid grid-cols-4 gap-2 empty:hidden"></div>
                     </div>
 
-                    <!-- Grelha de Pré-visualização de Fotos -->
-                    <div id="photo-preview-grid" class="grid grid-cols-4 gap-2 mt-3 empty:hidden">
-                        <!-- Os cartões de pré-visualização serão inseridos aqui -->
+                    <!-- Categoria 2: Abaixo do peso -->
+                    <div class="space-y-2">
+                        <label class="block text-[11px] font-bold text-amber-700 uppercase tracking-wider">2. Fotos de Cabeças Abaixo do Peso</label>
+                        <div onclick="triggerFileInput('underweight')" class="border border-dashed border-amber-300 rounded-xl p-3 text-center cursor-pointer hover:bg-amber-50/30 transition-all flex flex-col items-center justify-center">
+                            <input type="file" id="photos-underweight-input" multiple accept="image/*" class="hidden" onchange="handlePhotoCategorySelect(event, 'underweight')">
+                            <i class="fa-solid fa-weight-hanging text-amber-500 mb-1"></i>
+                            <span class="text-[10px] font-bold text-slate-600">Adicionar Fotos (Abaixo do Peso)</span>
+                        </div>
+                        <div id="preview-underweight" class="grid grid-cols-4 gap-2 empty:hidden"></div>
+                    </div>
+
+                    <!-- Categoria 3: Cabeças a Colher (Boas) -->
+                    <div class="space-y-2">
+                        <label class="block text-[11px] font-bold text-emerald-700 uppercase tracking-wider">3. Fotos de Cabeças a Colher (Padrão)</label>
+                        <div onclick="triggerFileInput('harvest')" class="border border-dashed border-emerald-300 rounded-xl p-3 text-center cursor-pointer hover:bg-emerald-50/30 transition-all flex flex-col items-center justify-center">
+                            <input type="file" id="photos-harvest-input" multiple accept="image/*" class="hidden" onchange="handlePhotoCategorySelect(event, 'harvest')">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mb-1"></i>
+                            <span class="text-[10px] font-bold text-slate-600">Adicionar Fotos (Padrão Comercial)</span>
+                        </div>
+                        <div id="preview-harvest" class="grid grid-cols-4 gap-2 empty:hidden"></div>
                     </div>
                 </div>
 
@@ -202,7 +217,7 @@
                     <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                         <i class="fa-solid fa-list-check text-teal-600"></i> Histórico de Registos
                     </h2>
-                    <p class="text-slate-400 text-xs font-medium">Lista de avaliações e relatórios lançados</p>
+                    <p class="text-slate-400 text-xs font-medium">Análise de Rendimento e Perdas de Campo</p>
                 </div>
                 
                 <!-- Pesquisa de Registos -->
@@ -216,7 +231,7 @@
             </div>
 
             <!-- Lista de Registos -->
-            <div id="records-list" class="flex-grow space-y-4 overflow-y-auto max-h-[750px] pr-2">
+            <div id="records-list" class="flex-grow space-y-4 overflow-y-auto max-h-[850px] pr-2">
                 <!-- Estado vazio apresentado por defeito se não existirem registos -->
                 <div id="empty-state" class="flex flex-col items-center justify-center py-20 text-center space-y-4">
                     <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-300">
@@ -224,10 +239,9 @@
                     </div>
                     <div>
                         <h3 class="text-base font-bold text-slate-700">Nenhum registo encontrado</h3>
-                        <p class="text-slate-400 text-xs max-w-sm mt-1 mx-auto">Preencha o formulário técnico à esquerda para adicionar o primeiro resumo de produção.</p>
+                        <p class="text-slate-400 text-xs max-w-sm mt-1 mx-auto">Lance os dados operacionais e as fotos de inspeção no painel esquerdo.</p>
                     </div>
                 </div>
-
                 <!-- Os registos dinâmicos serão injetados aqui -->
             </div>
         </section>
@@ -235,16 +249,14 @@
     </main>
 
     <!-- Modal de Diálogo Personalizado (Confirmação e Alertas) -->
-    <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden animate-fadeIn">
+    <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 transform transition-all flex flex-col items-center text-center">
-            <div id="modal-icon-container" class="p-4 rounded-full mb-4">
-                <!-- Ícone dinâmico -->
-            </div>
+            <div id="modal-icon-container" class="p-4 rounded-full mb-4"></div>
             <h3 id="modal-title" class="text-lg font-bold text-slate-900"></h3>
             <p id="modal-message" class="text-slate-500 text-sm mt-2 mb-6"></p>
             <div class="flex gap-3 w-full">
                 <button id="modal-btn-cancel" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors">Cancelar</button>
-                <button id="modal-btn-confirm" class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/15 transition-colors">Confirmar</button>
+                <button id="modal-btn-confirm" class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg transition-colors">Confirmar</button>
             </div>
         </div>
     </div>
@@ -256,16 +268,16 @@
             <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50 rounded-t-3xl">
                 <div>
                     <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-solid fa-print text-emerald-600"></i> Visualização de Exportação
+                        <i class="fa-solid fa-print text-emerald-600"></i> Relatório Executivo Oficial
                     </h3>
-                    <p class="text-xs text-slate-400 font-medium">Confirme os dados antes de descarregar o ficheiro em alta resolução.</p>
+                    <p class="text-xs text-slate-400 font-medium">Ficha técnica formatada para impressão e apresentação à Diretoria.</p>
                 </div>
                 <div class="flex items-center gap-2 self-stretch sm:self-auto">
                     <button onclick="downloadAsJPEG()" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-sm transition-colors flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-file-image"></i> Descarregar JPEG
+                        <i class="fa-solid fa-file-image"></i> Exportar JPEG
                     </button>
                     <button onclick="downloadAsPDF()" class="flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-sm transition-colors flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-file-pdf"></i> Descarregar PDF
+                        <i class="fa-solid fa-file-pdf"></i> Exportar PDF
                     </button>
                     <button onclick="closeExportModal()" class="text-slate-400 hover:text-slate-600 p-2.5 hover:bg-slate-100 rounded-xl transition-colors" title="Fechar">
                         <i class="fa-solid fa-xmark text-lg"></i>
@@ -275,17 +287,15 @@
 
             <!-- Visualização da Folha de Impressão (com scroll) -->
             <div class="flex-grow overflow-y-auto p-8 bg-slate-100 flex justify-center">
-                <!-- Contentor visado pelo html2canvas -->
                 <div id="print-sheet" class="bg-white w-[750px] shadow-lg p-10 border border-slate-200 text-slate-800 flex flex-col space-y-8 rounded-lg self-start">
                     
-                    <!-- Cabeçalho do Relatório com Logótipo sem contorno -->
+                    <!-- Cabeçalho do Relatório -->
                     <div class="flex justify-between items-center border-b-2 border-emerald-600 pb-6">
                         <div class="flex items-center space-x-4">
-                            <!-- Logótipo integrado sem contorno no cabeçalho do documento -->
                             <img src="https://i.imgur.com/wEozr34.png" alt="Logótipo" class="h-14 w-auto object-contain bg-transparent border-0 outline-none" onerror="this.onerror=null; this.src='https://placehold.co/100x100/10b981/ffffff?text=Logo';">
                             <div>
                                 <span class="text-[10px] font-bold tracking-wider text-emerald-700 uppercase bg-emerald-100 px-3 py-1 rounded-full">Ficha Técnica Oficial</span>
-                                <h2 class="text-2xl font-black text-slate-900 mt-2">REGISTRO TÉCNICO PRODUÇÃO</h2>
+                                <h2 class="text-2xl font-black text-slate-900 mt-2">REGISTO TÉCNICO DE PRODUÇÃO</h2>
                                 <p class="text-emerald-700 font-semibold text-sm">Resumo Operacional Técnico</p>
                             </div>
                         </div>
@@ -295,7 +305,7 @@
                         </div>
                     </div>
 
-                    <!-- Grelha de Metadados -->
+                    <!-- Informações do Lançamento -->
                     <div class="grid grid-cols-2 gap-x-8 gap-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-200/60">
                         <div class="flex flex-col">
                             <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Data de Registo</span>
@@ -315,48 +325,81 @@
                         </div>
                     </div>
 
-                    <!-- Grelha de Métricas (Centrada de forma absoluta) -->
-                    <div>
-                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 text-center sm:text-left">Métricas de Avaliação</h4>
-                        <div class="grid grid-cols-5 gap-3">
-                            <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex flex-col items-center justify-center text-center">
-                                <span class="text-[9px] text-slate-400 font-bold uppercase block leading-tight text-center w-full">Total Canteiros</span>
-                                <p id="print-total-canteiros" class="text-xl font-black text-slate-800 mt-1 text-center w-full">0</p>
+                    <!-- Bloco Estatístico da Diretoria (Gráfico de Pizza + Flashcards Centrados) -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-slate-50/50 p-6 rounded-3xl border border-slate-200">
+                        <!-- Lado do Gráfico -->
+                        <div class="md:col-span-5 flex flex-col items-center justify-center text-center">
+                            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Composição de Qualidade (%)</h4>
+                            <div id="print-chart-container" class="relative w-40 h-40 rounded-full flex items-center justify-center shadow-md">
+                                <!-- Donut Chart será renderizado via script -->
                             </div>
-                            <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-xl flex flex-col items-center justify-center text-center">
-                                <span class="text-[9px] text-emerald-600 font-bold uppercase block leading-tight text-center w-full">Cabeças a Colher</span>
-                                <p id="print-colher" class="text-xl font-black text-emerald-700 mt-1 text-center w-full">0</p>
+                            <div class="flex gap-4 mt-4 text-[10px] font-bold flex-wrap justify-center">
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Conforme</span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Sub-peso</span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Deformada</span>
                             </div>
-                            <div class="bg-rose-50 border border-rose-100 p-3 rounded-xl flex flex-col items-center justify-center text-center">
-                                <span class="text-[9px] text-rose-500 font-bold uppercase block leading-tight text-center w-full">Cab. Deformadas</span>
-                                <p id="print-deformadas" class="text-xl font-black text-rose-600 mt-1 text-center w-full">0</p>
+                        </div>
+
+                        <!-- Lado das Métricas -->
+                        <div class="md:col-span-7 grid grid-cols-2 gap-3">
+                            <div class="bg-white border border-slate-200 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-slate-400 font-bold uppercase block leading-tight text-center w-full">Total Avaliado</span>
+                                <p id="print-total-canteiros" class="text-lg font-black text-slate-800 mt-1 text-center w-full">0</p>
                             </div>
-                            <div class="bg-amber-50 border border-amber-100 p-3 rounded-xl flex flex-col items-center justify-center text-center">
-                                <span class="text-[9px] text-amber-600 font-bold uppercase block leading-tight text-center w-full">Abaixo do Peso</span>
-                                <p id="print-abaixo-peso" class="text-xl font-black text-amber-600 mt-1 text-center w-full">0</p>
+                            <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-emerald-600 font-bold uppercase block leading-tight text-center w-full">Conformes</span>
+                                <p id="print-colher" class="text-lg font-black text-emerald-700 mt-1 text-center w-full">0</p>
                             </div>
-                            <div class="bg-sky-50 border border-sky-100 p-3 rounded-xl flex flex-col items-center justify-center text-center">
-                                <span class="text-[9px] text-sky-600 font-bold uppercase block leading-tight text-center w-full">Média Cm</span>
-                                <p id="print-media-cm" class="text-xl font-black text-sky-700 mt-1 text-center w-full">0.0</p>
+                            <div class="bg-rose-50 border border-rose-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-rose-500 font-bold uppercase block leading-tight text-center w-full">Deformadas</span>
+                                <p id="print-deformadas" class="text-lg font-black text-rose-600 mt-1 text-center w-full">0</p>
+                            </div>
+                            <div class="bg-amber-50 border border-amber-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-amber-600 font-bold uppercase block leading-tight text-center w-full">Abaixo Peso</span>
+                                <p id="print-abaixo-peso" class="text-lg font-black text-amber-600 mt-1 text-center w-full">0</p>
+                            </div>
+                            <div class="col-span-2 bg-sky-50 border border-sky-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-sky-600 font-bold uppercase block leading-tight text-center w-full">Média de Calibre</span>
+                                <p id="print-media-cm" class="text-lg font-black text-sky-700 mt-1 text-center w-full">0.0 cm</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Grelha de Fotos Amplas e sem distorção -->
-                    <div class="space-y-4">
-                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center justify-center sm:justify-start gap-1.5">
-                            <i class="fa-solid fa-images text-emerald-600"></i> Fotos Anexadas de Campo <span class="text-[10px] text-slate-400 normal-case">(Nítidas, Proporcionais e Visíveis)</span>
+                    <!-- Grelhas de Fotos Amplas e Organizadas por Categoria -->
+                    <div class="space-y-6">
+                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-200 pb-2 flex items-center justify-start gap-1.5">
+                            <i class="fa-solid fa-images text-emerald-600"></i> Galeria de Evidências de Inspeção
                         </h4>
-                        <!-- Contentor otimizado para não achatar ou distorcer imagens na exportação -->
-                        <div id="print-photos-container" class="grid grid-cols-1 gap-6">
-                            <!-- Imagens em alta resolução serão renderizadas aqui em formato proporcional -->
+                        
+                        <!-- Categoria: Deformadas -->
+                        <div id="print-category-deformed-section" class="space-y-2">
+                            <h5 class="text-[10px] font-bold text-rose-700 uppercase tracking-wider flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-rose-500"></span> Registos de Cabeças Deformadas
+                            </h5>
+                            <div id="print-photos-deformed" class="grid grid-cols-2 gap-4"></div>
+                        </div>
+
+                        <!-- Categoria: Abaixo do peso -->
+                        <div id="print-category-underweight-section" class="space-y-2">
+                            <h5 class="text-[10px] font-bold text-amber-700 uppercase tracking-wider flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span> Registos de Cabeças Abaixo do Peso
+                            </h5>
+                            <div id="print-photos-underweight" class="grid grid-cols-2 gap-4"></div>
+                        </div>
+
+                        <!-- Categoria: Cabeças Boas -->
+                        <div id="print-category-harvest-section" class="space-y-2">
+                            <h5 class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Registos de Padrão Comercial (Colheita)
+                            </h5>
+                            <div id="print-photos-harvest" class="grid grid-cols-2 gap-4"></div>
                         </div>
                     </div>
 
                     <!-- Rodapé do Documento -->
                     <div class="border-t border-slate-200 pt-8 flex justify-between items-center text-xs text-slate-400">
-                        <p>Registo Técnico Produção • Resumo Operacional</p>
-                        <p class="font-semibold text-slate-500">Documento Gerado Digitalmente</p>
+                        <p>Registo Técnico Produção • Resumo Operacional de Diretoria</p>
+                        <p class="font-semibold text-slate-500">Relatório Consolidado</p>
                     </div>
 
                 </div>
@@ -364,7 +407,7 @@
         </div>
     </div>
 
-    <!-- Contentor flutuante para notificações Toast -->
+    <!-- Contentor para notificações Toast -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
 
     <footer class="bg-slate-100 border-t border-slate-200 py-4 mt-8">
@@ -374,19 +417,20 @@
     </footer>
 
     <script>
-        // Variáveis de Estado
+        // Variáveis de Estado Global
         let productionRecords = [];
-        let currentPhotos = []; // Armazena strings em base64 das imagens atualmente carregadas no formulário
-        let editingRecordId = null; // null se estiver a criar, string ID se estiver a editar
-        let exportActiveRecordId = null; // ID do registo atualmente carregado no modal de exportação
+        let editingRecordId = null; 
+        let exportActiveRecordId = null; 
 
-        // Variáveis do Modal Personalizado
-        let customModalCallback = null;
+        // Listas temporárias de imagens base64 carregadas no formulário
+        let currentPhotosDeformed = [];
+        let currentPhotosUnderweight = [];
+        let currentPhotosToHarvest = [];
 
         // Inicialização da Aplicação
-        window.addEventListener('load', () => {
-            // Carregar do LocalStorage se disponível
-            const saved = localStorage.getItem('reg_prod_records');
+        window.addEventListener('DOMContentLoaded', () => {
+            // Carregar do LocalStorage
+            const saved = localStorage.getItem('reg_prod_records_v3');
             if (saved) {
                 try {
                     productionRecords = JSON.parse(saved);
@@ -395,65 +439,50 @@
                 }
             }
             
-            // Definir data predefinida para hoje
+            // Definir data padrão de hoje
             const dateInput = document.getElementById('reg-date');
             const today = new Date().toISOString().split('T')[0];
-            dateInput.value = today;
-            updateWeekByDate(today);
+            if (dateInput) {
+                dateInput.value = today;
+                updateWeekByDate(today);
+                dateInput.addEventListener('change', (e) => {
+                    updateWeekByDate(e.target.value);
+                });
+            }
 
-            // Ouvintes de eventos
-            dateInput.addEventListener('change', (e) => {
-                updateWeekByDate(e.target.value);
-            });
+            const btnCancelEdit = document.getElementById('btn-cancel-edit');
+            if (btnCancelEdit) {
+                btnCancelEdit.addEventListener('click', cancelEditing);
+            }
 
-            document.getElementById('btn-cancel-edit').addEventListener('click', cancelEditing);
-
-            // Drag and Drop para anexar fotos
-            const dropZone = document.getElementById('drop-zone');
-            
-            ['dragenter', 'dragover'].forEach(eventName => {
-                dropZone.addEventListener(eventName, (e) => {
-                    e.preventDefault();
-                    dropZone.classList.add('border-emerald-500', 'bg-emerald-50/20');
-                }, false);
-            });
-
-            ['dragleave', 'drop'].forEach(eventName => {
-                dropZone.addEventListener(eventName, (e) => {
-                    e.preventDefault();
-                    dropZone.classList.remove('border-emerald-500', 'bg-emerald-50/20');
-                }, false);
-            });
-
-            dropZone.addEventListener('drop', (e) => {
-                const dt = e.dataTransfer;
-                const files = dt.files;
-                processUploadedFiles(files);
-            });
-
-            dropZone.addEventListener('click', () => {
-                document.getElementById('reg-photos').click();
-            });
-
-            // Renderização inicial
+            // Renderizar dados iniciais
             renderRecords();
             updateStatsBadges();
         });
 
-        // Conversão de data para formato padrão ISO 8601 da Semana
+        // Atualizar badges estatísticos de topo
+        function updateStatsBadges() {
+            const badgeTotal = document.getElementById('badge-total-records');
+            const badgeBeds = document.getElementById('badge-total-beds');
+            
+            if (badgeTotal) badgeTotal.innerText = productionRecords.length;
+            if (badgeBeds) {
+                const totalBedsSum = productionRecords.reduce((sum, item) => sum + (parseInt(item.totalBeds) || 0), 0);
+                badgeBeds.innerText = totalBedsSum;
+            }
+        }
+
+        // Converter datas para Semanas ISO 8601
         function updateWeekByDate(dateString) {
             const weekInput = document.getElementById('reg-week');
-            if (!dateString) {
-                weekInput.value = '';
-                return;
-            }
+            if (!weekInput || !dateString) return;
+
             const date = new Date(dateString);
             if (isNaN(date.getTime())) {
                 weekInput.value = '';
                 return;
             }
             
-            // Lógica de cálculo da semana do ano ISO 8601
             const target = new Date(date.valueOf());
             const dayNr = (date.getDay() + 6) % 7;
             target.setDate(target.getDate() - dayNr + 3);
@@ -463,173 +492,136 @@
                 target.setMonth(0, 1 + ((4 - target.getDay() + 7) % 7));
             }
             const weekNumber = 1 + Math.ceil((firstThursday - target) / 604800000);
-            
             weekInput.value = `Semana ${String(weekNumber).padStart(2, '0')}`;
         }
 
-        // Alternar visualização do campo alternativo de Bloco
-        function toggleBlockCustomInput(value) {
-            const container = document.getElementById('block-custom-container');
-            const customInput = document.getElementById('reg-block-custom');
-            if (value === 'Outros') {
-                container.classList.remove('hidden');
-                customInput.setAttribute('required', 'true');
-            } else {
-                container.classList.add('hidden');
-                customInput.removeAttribute('required');
-                customInput.value = '';
+        // Ativar cliques nas áreas de anexos escondidas
+        function triggerFileInput(category) {
+            if (category === 'deformed') {
+                document.getElementById('photos-deformed-input').click();
+            } else if (category === 'underweight') {
+                document.getElementById('photos-underweight-input').click();
+            } else if (category === 'harvest') {
+                document.getElementById('photos-harvest-input').click();
             }
         }
 
-        // Alternar visualização do campo alternativo de Cultura
-        function toggleCropCustomInput(value) {
-            const container = document.getElementById('crop-custom-container');
-            const customInput = document.getElementById('reg-crop-custom');
-            if (value === 'Outros') {
-                container.classList.remove('hidden');
-                customInput.setAttribute('required', 'true');
-            } else {
-                container.classList.add('hidden');
-                customInput.removeAttribute('required');
-                customInput.value = '';
-            }
-        }
+        // Processar seleção de imagens específicas por categoria
+        function handlePhotoCategorySelect(event, category) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
 
-        // Exibir notificações Toast no canto inferior direito
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            
-            let bgClass = 'bg-emerald-600';
-            let iconClass = 'fa-circle-check';
-            if (type === 'error') {
-                bgClass = 'bg-rose-600';
-                iconClass = 'fa-circle-xmark';
-            } else if (type === 'info') {
-                bgClass = 'bg-amber-500';
-                iconClass = 'fa-circle-exclamation';
-            }
-
-            toast.className = `flex items-center gap-3 ${bgClass} text-white text-xs font-bold px-4 py-3 rounded-xl shadow-lg animate-slideUp pointer-events-auto`;
-            toast.innerHTML = `
-                <i class="fa-solid ${iconClass} text-base"></i>
-                <span>${message}</span>
-            `;
-
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // Exibir caixa de diálogo de confirmação (em substituição de alertas nativos)
-        function showCustomModal(title, message, iconType, onConfirm) {
-            const modal = document.getElementById('custom-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalMsg = document.getElementById('modal-message');
-            const iconContainer = document.getElementById('modal-icon-container');
-            
-            modalTitle.innerText = title;
-            modalMsg.innerText = message;
-            
-            if (iconType === 'warning') {
-                iconContainer.className = "p-4 rounded-full mb-4 bg-amber-100 text-amber-600";
-                iconContainer.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-3xl"></i>';
-            } else {
-                iconContainer.className = "p-4 rounded-full mb-4 bg-rose-100 text-rose-600";
-                iconContainer.innerHTML = '<i class="fa-solid fa-trash-can text-3xl"></i>';
-            }
-
-            modal.classList.remove('hidden');
-            
-            customModalCallback = onConfirm;
-
-            document.getElementById('modal-btn-cancel').onclick = () => {
-                modal.classList.add('hidden');
-                customModalCallback = null;
-            };
-
-            document.getElementById('modal-btn-confirm').onclick = () => {
-                if (customModalCallback) customModalCallback();
-                modal.classList.add('hidden');
-                customModalCallback = null;
-            };
-        }
-
-        // Processar seleção de fotografias
-        function handlePhotoSelect(e) {
-            processUploadedFiles(e.target.files);
-        }
-
-        // Processar ficheiros de imagem e converter em base64
-        function processUploadedFiles(files) {
             let processedCount = 0;
             const targetCount = files.length;
-            
-            if (targetCount === 0) return;
 
             Array.from(files).forEach(file => {
                 if (!file.type.startsWith('image/')) {
-                    showToast('Selecione apenas ficheiros de imagem.', 'error');
+                    showToast('Selecione apenas ficheiros de imagem válidos.', 'error');
                     return;
                 }
 
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    currentPhotos.push(e.target.result);
+                    const base64Data = e.target.result;
+                    if (category === 'deformed') {
+                        currentPhotosDeformed.push(base64Data);
+                    } else if (category === 'underweight') {
+                        currentPhotosUnderweight.push(base64Data);
+                    } else if (category === 'harvest') {
+                        currentPhotosToHarvest.push(base64Data);
+                    }
+
                     processedCount++;
-                    if (processedCount === targetCount || processedCount === files.length) {
-                        renderPhotoPreviews();
+                    if (processedCount === targetCount) {
+                        renderPhotoPreviewsForCategory(category);
                     }
                 };
                 reader.readAsDataURL(file);
             });
         }
 
-        // Renderizar pré-visualização das fotos no formulário
-        function renderPhotoPreviews() {
-            const grid = document.getElementById('photo-preview-grid');
-            grid.innerHTML = '';
+        // Renderizar miniaturas dinâmicas das fotos por categorias no formulário
+        function renderPhotoPreviewsForCategory(category) {
+            let containerId = '';
+            let list = [];
 
-            currentPhotos.forEach((photo, idx) => {
+            if (category === 'deformed') {
+                containerId = 'preview-deformed';
+                list = currentPhotosDeformed;
+            } else if (category === 'underweight') {
+                containerId = 'preview-underweight';
+                list = currentPhotosUnderweight;
+            } else if (category === 'harvest') {
+                containerId = 'preview-harvest';
+                list = currentPhotosToHarvest;
+            }
+
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            list.forEach((img, index) => {
                 const wrapper = document.createElement('div');
-                wrapper.className = 'relative group aspect-square rounded-xl overflow-hidden border border-slate-200 bg-white';
+                wrapper.className = 'relative group aspect-square rounded-xl overflow-hidden border border-slate-200 bg-white mt-1';
                 wrapper.innerHTML = `
-                    <img src="${photo}" class="w-full h-full object-cover">
-                    <button type="button" onclick="removePhoto(${idx})"
-                        class="absolute top-1 right-1 bg-rose-600 hover:bg-rose-700 text-white rounded-full w-6 h-6 flex items-center justify-center shadow-md transition-colors">
-                        <i class="fa-solid fa-trash-can text-[10px]"></i>
+                    <img src="${img}" class="w-full h-full object-cover">
+                    <button type="button" onclick="removePhotoFromCategory('${category}', ${index})"
+                        class="absolute top-1 right-1 bg-rose-600 hover:bg-rose-700 text-white rounded-full w-5 h-5 flex items-center justify-center shadow-md transition-colors">
+                        <i class="fa-solid fa-xmark text-[9px]"></i>
                     </button>
                 `;
-                grid.appendChild(wrapper);
+                container.appendChild(wrapper);
             });
         }
 
-        // Remover foto da memória antes de registar
-        function removePhoto(index) {
-            currentPhotos.splice(index, 1);
-            renderPhotoPreviews();
+        // Remover foto carregada do formulário
+        function removePhotoFromCategory(category, index) {
+            if (category === 'deformed') {
+                currentPhotosDeformed.splice(index, 1);
+            } else if (category === 'underweight') {
+                currentPhotosUnderweight.splice(index, 1);
+            } else if (category === 'harvest') {
+                currentPhotosToHarvest.splice(index, 1);
+            }
+            renderPhotoPreviewsForCategory(category);
         }
 
-        // Limpar o formulário técnico por completo
-        function resetForm() {
-            const form = document.getElementById('production-form');
-            form.reset();
-            
-            toggleBlockCustomInput('');
-            toggleCropCustomInput('');
-            currentPhotos = [];
-            renderPhotoPreviews();
-            
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('reg-date').value = today;
-            updateWeekByDate(today);
-
-            cancelEditing();
+        // Alternar caixas de inputs adicionais para dados "Outros"
+        function toggleBlockCustomInput(value) {
+            const container = document.getElementById('block-custom-container');
+            const customInput = document.getElementById('reg-block-custom');
+            if (container) {
+                if (value === 'Outros') {
+                    container.classList.remove('hidden');
+                    if (customInput) customInput.setAttribute('required', 'true');
+                } else {
+                    container.classList.add('hidden');
+                    if (customInput) {
+                        customInput.removeAttribute('required');
+                        customInput.value = '';
+                    }
+                }
+            }
         }
 
-        // Submissão do Formulário (Inserção e Edição)
+        function toggleCropCustomInput(value) {
+            const container = document.getElementById('crop-custom-container');
+            const customInput = document.getElementById('reg-crop-custom');
+            if (container) {
+                if (value === 'Outros') {
+                    container.classList.remove('hidden');
+                    if (customInput) customInput.setAttribute('required', 'true');
+                } else {
+                    container.classList.add('hidden');
+                    if (customInput) {
+                        customInput.removeAttribute('required');
+                        customInput.value = '';
+                    }
+                }
+            }
+        }
+
+        // Submeter formulário principal (Salvar ou Editar)
         function handleFormSubmit(e) {
             e.preventDefault();
 
@@ -640,7 +632,7 @@
             if (finalBlock === 'Outros') {
                 finalBlock = document.getElementById('reg-block-custom').value.trim();
                 if (!finalBlock) {
-                    showToast('Por favor, informe a identificação do bloco.', 'error');
+                    showToast('Por favor, digite a identificação do bloco.', 'error');
                     return;
                 }
             }
@@ -649,33 +641,40 @@
             if (finalCrop === 'Outros') {
                 finalCrop = document.getElementById('reg-crop-custom').value.trim();
                 if (!finalCrop) {
-                    showToast('Por favor, informe a cultura.', 'error');
+                    showToast('Por favor, especifique o tipo de cultura.', 'error');
                     return;
                 }
             }
 
             const totalBeds = parseInt(document.getElementById('reg-total-beds').value) || 0;
-            const toHarvest = parseInt(document.getElementById('reg-to-harvest').value) || 0;
-            const deformedHeads = parseInt(document.getElementById('reg-deformed').value) || 0;
-            const underweightHeads = parseInt(document.getElementById('reg-underweight').value) || 0;
+            const totalEvaluated = parseInt(document.getElementById('reg-to-harvest').value) || 0;
+            const deformedVal = parseInt(document.getElementById('reg-deformed').value) || 0;
+            const underweightVal = parseInt(document.getElementById('reg-underweight').value) || 0;
             const avgSize = parseFloat(document.getElementById('reg-avg-size').value) || 0.0;
 
+            if (deformedVal + underweightVal > totalEvaluated) {
+                showToast('A soma de perdas não pode ultrapassar o total avaliado.', 'error');
+                return;
+            }
+
             if (editingRecordId !== null) {
-                // Atualizar registo existente
-                const recordIdx = productionRecords.findIndex(r => r.id === editingRecordId);
-                if (recordIdx > -1) {
-                    productionRecords[recordIdx] = {
-                        ...productionRecords[recordIdx],
+                // Modo Edição
+                const idx = productionRecords.findIndex(r => r.id === editingRecordId);
+                if (idx > -1) {
+                    productionRecords[idx] = {
+                        ...productionRecords[idx],
                         date: inputDate,
                         week: inputWeek,
                         block: finalBlock,
                         crop: finalCrop,
                         totalBeds: totalBeds,
-                        toHarvest: toHarvest,
-                        deformed: deformedHeads,
-                        underweight: underweightHeads,
+                        toHarvest: totalEvaluated, // Total de cabeças avaliadas
+                        deformed: deformedVal,
+                        underweight: underweightVal,
                         avgSize: avgSize,
-                        photos: [...currentPhotos]
+                        photosDeformed: [...currentPhotosDeformed],
+                        photosUnderweight: [...currentPhotosUnderweight],
+                        photosToHarvest: [...currentPhotosToHarvest]
                     };
                     showToast('Registo Técnico atualizado com sucesso!');
                 }
@@ -684,7 +683,7 @@
                 document.getElementById('btn-submit-form').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Salvar Registo Técnico`;
                 document.getElementById('btn-cancel-edit').classList.add('hidden');
             } else {
-                // Criar novo registo técnico
+                // Modo Criação
                 const newRecord = {
                     id: 'rec_' + Date.now(),
                     date: inputDate,
@@ -692,21 +691,42 @@
                     block: finalBlock,
                     crop: finalCrop,
                     totalBeds: totalBeds,
-                    toHarvest: toHarvest,
-                    deformed: deformedHeads,
-                    underweight: underweightHeads,
+                    toHarvest: totalEvaluated,
+                    deformed: deformedVal,
+                    underweight: underweightVal,
                     avgSize: avgSize,
-                    photos: [...currentPhotos]
+                    photosDeformed: [...currentPhotosDeformed],
+                    photosUnderweight: [...currentPhotosUnderweight],
+                    photosToHarvest: [...currentPhotosToHarvest]
                 };
                 
                 productionRecords.unshift(newRecord);
-                showToast('Registo Técnico cadastrado com sucesso!');
+                showToast('Novo Registo registado com sucesso para a Diretoria!');
             }
 
-            saveStateToLocalStorage();
+            saveToLocalStorage();
             resetForm();
             renderRecords();
             updateStatsBadges();
+        }
+
+        // Limpar todos os inputs e ficheiros do formulário
+        function resetForm() {
+            document.getElementById('production-form').reset();
+            currentPhotosDeformed = [];
+            currentPhotosUnderweight = [];
+            currentPhotosToHarvest = [];
+            
+            renderPhotoPreviewsForCategory('deformed');
+            renderPhotoPreviewsForCategory('underweight');
+            renderPhotoPreviewsForCategory('harvest');
+
+            toggleBlockCustomInput('');
+            toggleCropCustomInput('');
+
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('reg-date').value = today;
+            updateWeekByDate(today);
         }
 
         // Cancelar modo de edição
@@ -715,18 +735,10 @@
             document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-circle-plus text-emerald-600"></i> Novo Registo Técnico`;
             document.getElementById('btn-submit-form').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Salvar Registo Técnico`;
             document.getElementById('btn-cancel-edit').classList.add('hidden');
-            
-            currentPhotos = [];
-            renderPhotoPreviews();
-            document.getElementById('production-form').reset();
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('reg-date').value = today;
-            updateWeekByDate(today);
-            toggleBlockCustomInput('');
-            toggleCropCustomInput('');
+            resetForm();
         }
 
-        // Iniciar modo de edição para carregar registo no formulário
+        // Carregar registo selecionado para edição
         function editRecord(id) {
             const record = productionRecords.find(r => r.id === id);
             if (!record) return;
@@ -763,30 +775,35 @@
             }
 
             document.getElementById('reg-total-beds').value = record.totalBeds;
-            document.getElementById('reg-to-harvest').value = record.toHarvest || 0;
+            document.getElementById('reg-to-harvest').value = record.toHarvest;
             document.getElementById('reg-deformed').value = record.deformed;
             document.getElementById('reg-underweight').value = record.underweight;
-            document.getElementById('reg-avg-size').value = record.avgSize || 0.0;
+            document.getElementById('reg-avg-size').value = record.avgSize;
 
-            currentPhotos = [...record.photos];
-            renderPhotoPreviews();
+            currentPhotosDeformed = [...(record.photosDeformed || [])];
+            currentPhotosUnderweight = [...(record.photosUnderweight || [])];
+            currentPhotosToHarvest = [...(record.photosToHarvest || [])];
+
+            renderPhotoPreviewsForCategory('deformed');
+            renderPhotoPreviewsForCategory('underweight');
+            renderPhotoPreviewsForCategory('harvest');
 
             document.getElementById('production-form').scrollIntoView({ behavior: 'smooth' });
-            showToast('Dados do registo carregados no formulário!', 'info');
+            showToast('Dados de produção carregados no painel de edição.', 'info');
         }
 
-        // Excluir registo do histórico
+        // Apagar registo permanente do histórico
         function deleteRecord(id) {
             showCustomModal(
-                'Excluir Registo?',
-                'Tem certeza de que deseja apagar permanentemente este registo técnico da lista? Esta ação não pode ser desfeita.',
+                'Remover Registo Técnico?',
+                'Tem a certeza absoluta de que pretende apagar este registo operacional? Todos os dados, métricas e fotografias associadas serão definitivamente perdidos.',
                 'delete',
                 () => {
                     productionRecords = productionRecords.filter(r => r.id !== id);
-                    saveStateToLocalStorage();
+                    saveToLocalStorage();
                     renderRecords();
                     updateStatsBadges();
-                    showToast('O registo foi excluído com sucesso.', 'info');
+                    showToast('O registo técnico foi totalmente removido.', 'info');
                     
                     if (editingRecordId === id) {
                         cancelEditing();
@@ -795,31 +812,92 @@
             );
         }
 
-        // Persistir dados guardados no armazenamento local
-        function saveStateToLocalStorage() {
-            localStorage.setItem('reg_prod_records', JSON.stringify(productionRecords));
+        // Guardar lista localmente
+        function saveToLocalStorage() {
+            localStorage.setItem('reg_prod_records_v3', JSON.stringify(productionRecords));
         }
 
-        // Atualizar painéis de estatísticas rápidas
-        function updateStatsBadges() {
-            document.getElementById('badge-total-records').innerText = productionRecords.length;
-            const totalBedsSum = productionRecords.reduce((sum, item) => sum + item.totalBeds, 0);
-            document.getElementById('badge-total-beds').innerText = totalBedsSum;
+        // Exibir Notificações Toast no Ecrã
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            let bgClass = 'bg-emerald-600';
+            let iconClass = 'fa-circle-check';
+            
+            if (type === 'error') {
+                bgClass = 'bg-rose-600';
+                iconClass = 'fa-circle-xmark';
+            } else if (type === 'info') {
+                bgClass = 'bg-blue-600';
+                iconClass = 'fa-circle-info';
+            }
+
+            toast.className = `flex items-center gap-3 ${bgClass} text-white text-xs font-bold px-4 py-3 rounded-xl shadow-lg animate-slideUp pointer-events-auto transition-opacity duration-300`;
+            toast.innerHTML = `
+                <i class="fa-solid ${iconClass} text-base"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
         }
 
-        // Renderizar painel de cartões de histórico (Foco na centralização das métricas)
+        // Modal customizado para diálogos de aviso/remoção
+        function showCustomModal(title, message, iconType, onConfirm) {
+            const modal = document.getElementById('custom-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalMsg = document.getElementById('modal-message');
+            const iconContainer = document.getElementById('modal-icon-container');
+            
+            if (!modal) return;
+
+            modalTitle.innerText = title;
+            modalMsg.innerText = message;
+            
+            if (iconType === 'delete') {
+                iconContainer.className = "p-4 rounded-full mb-4 bg-rose-100 text-rose-600";
+                iconContainer.innerHTML = '<i class="fa-solid fa-trash-can text-3xl"></i>';
+            } else {
+                iconContainer.className = "p-4 rounded-full mb-4 bg-amber-100 text-amber-600";
+                iconContainer.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-3xl"></i>';
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            document.getElementById('modal-btn-cancel').onclick = () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            };
+
+            document.getElementById('modal-btn-confirm').onclick = () => {
+                if (onConfirm) onConfirm();
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            };
+        }
+
+        // Renderizar todos os cartões de histórico (Foco na centralização das métricas e no gráfico analítico)
         function renderRecords(recordsToRender = productionRecords) {
             const listContainer = document.getElementById('records-list');
             const emptyState = document.getElementById('empty-state');
             
+            if (!listContainer) return;
+
+            // Limpar elementos antigos sem interferir com o empty-state
             const cards = listContainer.querySelectorAll('.record-card');
             cards.forEach(card => card.remove());
 
             if (recordsToRender.length === 0) {
-                emptyState.classList.remove('hidden');
+                if (emptyState) emptyState.classList.remove('hidden');
                 return;
             }
-            emptyState.classList.add('hidden');
+            if (emptyState) emptyState.classList.add('hidden');
 
             recordsToRender.forEach(record => {
                 const card = document.createElement('div');
@@ -828,25 +906,29 @@
                 const parts = record.date.split('-');
                 const formattedDate = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : record.date;
 
-                // Construção da lista de pré-visualização das fotos anexadas
-                let photosHTML = '';
-                if (record.photos && record.photos.length > 0) {
-                    photosHTML = `
-                        <div class="space-y-1.5">
-                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Fotos Registradas (${record.photos.length})</span>
-                            <div class="flex flex-wrap gap-1.5">
-                                ${record.photos.map(photo => `
-                                    <div class="w-12 h-12 rounded-lg overflow-hidden border border-slate-200/60 bg-white">
-                                        <img src="${photo}" class="w-full h-full object-cover">
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
+                // Cálculo das percentagens operacionais para o gráfico de pizza do cartão
+                const total = record.toHarvest || 1;
+                const deformedCount = record.deformed || 0;
+                const underweightCount = record.underweight || 0;
+                const perfectCount = Math.max(0, total - deformedCount - underweightCount);
+
+                const percentPerfect = Math.round((perfectCount / total) * 100);
+                const percentDeformed = Math.round((deformedCount / total) * 100);
+                const percentUnderweight = Math.round((underweightCount / total) * 100);
+
+                // Geração dinâmica de gráfico donut com conic-gradient
+                const donutGradient = `conic-gradient(
+                    #10b981 0% ${percentPerfect}%, 
+                    #f59e0b ${percentPerfect}% ${percentPerfect + percentUnderweight}%, 
+                    #f43f5e ${percentPerfect + percentUnderweight}% 100%
+                )`;
+
+                // Contagem total de fotografias anexadas
+                const totalPhotos = (record.photosDeformed?.length || 0) + 
+                                    (record.photosUnderweight?.length || 0) + 
+                                    (record.photosToHarvest?.length || 0);
 
                 card.innerHTML = `
-                    <!-- Top Info Row com Logótipo sem contorno -->
                     <div class="flex justify-between items-start flex-wrap gap-2">
                         <div class="flex items-center space-x-3">
                             <img src="https://i.imgur.com/wEozr34.png" alt="Logótipo" class="h-8 w-auto object-contain bg-transparent border-0" onerror="this.onerror=null; this.src='https://placehold.co/50x50/10b981/ffffff?text=Logo';">
@@ -867,7 +949,6 @@
                             </div>
                         </div>
                         
-                        <!-- Painel de botões rápidos -->
                         <div class="flex items-center gap-1">
                             <button onclick="openExportModal('${record.id}')" title="Exportar Relatório"
                                 class="p-2 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors">
@@ -884,38 +965,78 @@
                         </div>
                     </div>
 
-                    <!-- Cartões de Métricas (Centrados de forma absoluta e rigorosa) -->
-                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-3 border-t border-slate-200/60 text-xs">
-                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
-                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Canteiros</span>
-                            <span class="text-sm font-extrabold text-slate-700 text-center block w-full">${record.totalBeds}</span>
+                    <!-- Zona Analítica (Gráfico de Pizza + Flashcards Centrados) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-white p-4 rounded-2xl border border-slate-100">
+                        
+                        <!-- Mini Gráfico Circular para Diretoria -->
+                        <div class="sm:col-span-4 flex flex-col items-center justify-center text-center py-2">
+                            <div class="relative w-24 h-24 rounded-full flex items-center justify-center shadow-inner" style="background: ${donutGradient};">
+                                <div class="absolute w-16 h-16 bg-white rounded-full flex flex-col items-center justify-center shadow-sm">
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase">Aprov.</span>
+                                    <span class="text-xs font-black text-emerald-600">${percentPerfect}%</span>
+                                </div>
+                            </div>
+                            <span class="text-[9px] text-slate-400 font-bold uppercase mt-1.5 block">Inspeção de Campo</span>
                         </div>
-                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
-                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">A Colher</span>
-                            <span class="text-sm font-extrabold text-emerald-600 text-center block w-full">${record.toHarvest || 0}</span>
-                        </div>
-                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
-                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Deformadas</span>
-                            <span class="text-sm font-extrabold ${record.deformed > 0 ? 'text-rose-600' : 'text-slate-500'} text-center block w-full">${record.deformed}</span>
-                        </div>
-                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
-                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Sub-peso</span>
-                            <span class="text-sm font-extrabold ${record.underweight > 0 ? 'text-amber-600' : 'text-slate-500'} text-center block w-full">${record.underweight}</span>
-                        </div>
-                        <div class="bg-white/60 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
-                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Média Cm</span>
-                            <span class="text-sm font-extrabold text-sky-600 text-center block w-full">${record.avgSize ? Number(record.avgSize).toFixed(1) : '0.0'}</span>
+
+                        <!-- Flashcards de Dados Rigorosamente Centrados -->
+                        <div class="sm:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-2">
+                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center w-full">
+                                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Canteiros</span>
+                                <span class="text-xs font-extrabold text-slate-700 text-center block w-full">${record.totalBeds}</span>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center w-full">
+                                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Avaliado</span>
+                                <span class="text-xs font-extrabold text-slate-700 text-center block w-full">${record.toHarvest}</span>
+                            </div>
+                            <div class="bg-emerald-50/55 p-2 rounded-xl border border-emerald-100 flex flex-col items-center justify-center text-center w-full">
+                                <span class="text-[9px] text-emerald-600 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Conformes</span>
+                                <span class="text-xs font-extrabold text-emerald-700 text-center block w-full">${perfectCount}</span>
+                            </div>
+                            <div class="bg-rose-50/55 p-2 rounded-xl border border-rose-100 flex flex-col items-center justify-center text-center w-full">
+                                <span class="text-[9px] text-rose-600 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Deformadas</span>
+                                <span class="text-xs font-extrabold text-rose-600 text-center block w-full">${deformedCount}</span>
+                            </div>
+                            <div class="bg-amber-50/55 p-2 rounded-xl border border-amber-100 flex flex-col items-center justify-center text-center w-full">
+                                <span class="text-[9px] text-amber-600 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Sub-peso</span>
+                                <span class="text-xs font-extrabold text-amber-600 text-center block w-full">${underweightCount}</span>
+                            </div>
+                            <div class="bg-sky-50/55 p-2 rounded-xl border border-sky-100 flex flex-col items-center justify-center text-center w-full">
+                                <span class="text-[9px] text-sky-600 font-bold uppercase tracking-wider block leading-none mb-1 text-center w-full">Média Cm</span>
+                                <span class="text-xs font-extrabold text-sky-700 text-center block w-full">${Number(record.avgSize).toFixed(1)}</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Fotografias Anexadas -->
-                    ${photosHTML}
+                    <!-- Fotografias por Categoria (Pré-visualização Rápida) -->
+                    ${totalPhotos > 0 ? `
+                        <div class="pt-2 border-t border-slate-200/60 flex flex-col gap-2">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Registos de Evidências (${totalPhotos})</span>
+                            <div class="flex flex-wrap gap-2">
+                                ${record.photosDeformed && record.photosDeformed.length > 0 ? `
+                                    <div class="flex items-center gap-1 bg-rose-50 border border-rose-100 px-2 py-1 rounded-lg text-[9px] font-bold text-rose-700">
+                                        <i class="fa-solid fa-triangle-exclamation"></i> Deformadas (${record.photosDeformed.length})
+                                    </div>
+                                ` : ''}
+                                ${record.photosUnderweight && record.photosUnderweight.length > 0 ? `
+                                    <div class="flex items-center gap-1 bg-amber-50 border border-amber-100 px-2 py-1 rounded-lg text-[9px] font-bold text-amber-700">
+                                        <i class="fa-solid fa-weight-hanging"></i> Sub-peso (${record.photosUnderweight.length})
+                                    </div>
+                                ` : ''}
+                                ${record.photosToHarvest && record.photosToHarvest.length > 0 ? `
+                                    <div class="flex items-center gap-1 bg-emerald-50 border border-emerald-100 px-2 py-1 rounded-lg text-[9px] font-bold text-emerald-700">
+                                        <i class="fa-solid fa-circle-check"></i> Conformes (${record.photosToHarvest.length})
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    ` : ''}
                 `;
                 listContainer.appendChild(card);
             });
         }
 
-        // Filtro de pesquisa dinâmica por bloco, cultura ou semana
+        // Pesquisa e filtro do histórico
         function filterRecords() {
             const query = document.getElementById('search-input').value.toLowerCase().trim();
             if (!query) {
@@ -923,15 +1044,15 @@
                 return;
             }
 
-            const filtered = productionRecords.filter(record => {
-                return record.block.toLowerCase().includes(query) || 
-                       record.crop.toLowerCase().includes(query) ||
-                       record.week.toLowerCase().includes(query);
+            const filtered = productionRecords.filter(r => {
+                return r.block.toLowerCase().includes(query) || 
+                       r.crop.toLowerCase().includes(query) ||
+                       r.week.toLowerCase().includes(query);
             });
             renderRecords(filtered);
         }
 
-        // Carregar dados e abrir modal de exportação
+        // Carregar dados no modal de exportação executiva
         function openExportModal(recordId) {
             const record = productionRecords.find(r => r.id === recordId);
             if (!record) return;
@@ -945,71 +1066,105 @@
             document.getElementById('print-semana').innerText = record.week;
             document.getElementById('print-bloco').innerText = record.block;
             document.getElementById('print-cultura').innerText = record.crop;
-            document.getElementById('print-total-canteiros').innerText = record.totalBeds;
-            document.getElementById('print-colher').innerText = record.toHarvest || 0;
-            document.getElementById('print-deformadas').innerText = record.deformed;
-            document.getElementById('print-abaixo-peso').innerText = record.underweight;
-            document.getElementById('print-media-cm').innerText = record.avgSize ? Number(record.avgSize).toFixed(1) : '0.0';
+            document.getElementById('print-total-canteiros').innerText = record.toHarvest;
+            
+            // Cálculos
+            const total = record.toHarvest || 1;
+            const deformedVal = record.deformed || 0;
+            const underweightVal = record.underweight || 0;
+            const perfectVal = Math.max(0, total - deformedVal - underweightVal);
 
-            // Carimbo de data/hora oficial de exportação
+            const pctPerfect = Math.round((perfectVal / total) * 100);
+            const pctUnderweight = Math.round((underweightVal / total) * 100);
+            const pctDeformed = Math.round((deformedVal / total) * 100);
+
+            document.getElementById('print-colher').innerText = perfectVal;
+            document.getElementById('print-deformadas').innerText = deformedVal;
+            document.getElementById('print-abaixo-peso').innerText = underweightVal;
+            document.getElementById('print-media-cm').innerText = `${Number(record.avgSize).toFixed(1)} cm`;
+
+            // Data e hora de emissão do relatório
             const now = new Date();
             const dateStr = now.toLocaleDateString('pt-PT');
             const timeStr = now.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
             document.getElementById('print-sheet-timestamp').innerText = `${dateStr} às ${timeStr}`;
 
-            // Listagem de fotos sem achatamento e com alta visibilidade
-            const photosContainer = document.getElementById('print-photos-container');
-            photosContainer.innerHTML = '';
-
-            if (record.photos && record.photos.length > 0) {
-                record.photos.forEach((photoData, idx) => {
-                    const imgBox = document.createElement('div');
-                    imgBox.className = "flex flex-col items-center justify-center p-4 bg-slate-50 border border-slate-200 rounded-2xl";
-                    
-                    // Estrutura fluida que impede achatamento da imagem
-                    imgBox.innerHTML = `
-                        <div class="w-full flex items-center justify-center bg-white p-2 border border-slate-100 rounded-xl" style="min-height: 280px; max-height: 420px; overflow: hidden;">
-                            <img src="${photoData}" class="max-w-full max-h-[380px] w-auto h-auto object-contain mx-auto rounded-md" style="display: block;">
-                        </div>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase mt-3 tracking-wider">Imagem de Campo #${idx + 1}</span>
-                    `;
-                    photosContainer.appendChild(imgBox);
-                });
-            } else {
-                photosContainer.innerHTML = `
-                    <div class="py-12 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center text-slate-400 justify-center">
-                        <i class="fa-solid fa-camera-retro text-3xl mb-2"></i>
-                        <span class="text-xs font-semibold">Sem fotos anexadas a este registo.</span>
+            // Renderizar Gráfico de Pizza (Donut) no documento oficial
+            const chartContainer = document.getElementById('print-chart-container');
+            if (chartContainer) {
+                const donutGradient = `conic-gradient(
+                    #10b981 0% ${pctPerfect}%, 
+                    #f59e0b ${pctPerfect}% ${pctPerfect + pctUnderweight}%, 
+                    #f43f5e ${pctPerfect + pctUnderweight}% 100%
+                )`;
+                chartContainer.style.background = donutGradient;
+                chartContainer.innerHTML = `
+                    <div class="absolute w-28 h-28 bg-white rounded-full flex flex-col items-center justify-center shadow-inner">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Aproveitado</span>
+                        <span class="text-xl font-black text-emerald-600">${pctPerfect}%</span>
                     </div>
                 `;
             }
 
+            // Renderizar categorias de fotos de forma proporcional (sem distorcer)
+            renderPrintPhotoCategory('print-photos-deformed', 'print-category-deformed-section', record.photosDeformed, 'Frente de Anomalia (Deformada)');
+            renderPrintPhotoCategory('print-photos-underweight', 'print-category-underweight-section', record.photosUnderweight, 'Frente de Baixo Peso');
+            renderPrintPhotoCategory('print-photos-harvest', 'print-category-harvest-section', record.photosToHarvest, 'Padrão Comercial Colhido');
+
             const modal = document.getElementById('export-modal');
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // impede scroll de fundo do ecrã
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
         }
 
-        // Fechar modal de visualização
+        // Renderizar fotos de campo mantendo a proporção de forma rígida
+        function renderPrintPhotoCategory(containerId, sectionId, list, typeLabel) {
+            const container = document.getElementById(containerId);
+            const section = document.getElementById(sectionId);
+            if (!container || !section) return;
+
+            container.innerHTML = '';
+            if (list && list.length > 0) {
+                section.classList.remove('hidden');
+                list.forEach((base64, idx) => {
+                    const item = document.createElement('div');
+                    item.className = "flex flex-col items-center justify-center p-3 bg-white border border-slate-200 rounded-2xl";
+                    // Utilização de max-h fluidos e object-contain impede achatamento na folha de impressão e PDFs
+                    item.innerHTML = `
+                        <div class="w-full flex items-center justify-center bg-slate-50 p-2 rounded-xl" style="height: 240px; overflow: hidden;">
+                            <img src="${base64}" class="max-w-full max-h-[220px] w-auto h-auto object-contain mx-auto block rounded-lg">
+                        </div>
+                        <span class="text-[9px] text-slate-400 font-bold uppercase mt-2 tracking-wider">${typeLabel} #${idx + 1}</span>
+                    `;
+                    container.appendChild(item);
+                });
+            } else {
+                section.classList.add('hidden');
+            }
+        }
+
+        // Fechar modal de visualização de exportação
         function closeExportModal() {
             const modal = document.getElementById('export-modal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto'; // restaura scroll normal do ecrã
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
             exportActiveRecordId = null;
         }
 
-        // Exportar ficha técnica em alta definição JPEG
+        // Exportação estável para JPEG de alta resolução
         function downloadAsJPEG() {
             const record = productionRecords.find(r => r.id === exportActiveRecordId);
             if (!record) return;
 
-            showToast('A preparar descarregamento da imagem... Aguarde.', 'info');
+            showToast('A compilar e exportar imagem de alta resolução...', 'info');
             
             const element = document.getElementById('print-sheet');
-
-            // Configuração para garantir máxima nitidez sem distorcer proporções
             const options = {
                 useCORS: true,
-                scale: 3, // Multiplicador de escala 3x para evitar imagens desfocadas
+                scale: 3, // escala aumentada para alta definição
                 backgroundColor: '#ffffff',
                 logging: false
             };
@@ -1017,57 +1172,50 @@
             html2canvas(element, options).then(canvas => {
                 const imgData = canvas.toDataURL('image/jpeg', 0.95);
                 const link = document.createElement('a');
-                
                 const safeCrop = record.crop.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                const safeDate = record.date;
-                link.download = `Relatorio_Tecnico_Producao_${safeCrop}_${safeDate}.jpg`;
+                link.download = `Relatorio_Operacional_${safeCrop}_${record.date}.jpg`;
                 link.href = imgData;
                 link.click();
-                
-                showToast('JPEG descarregado com sucesso!');
+                showToast('Ficha de Produção descarregada em JPEG!');
             }).catch(err => {
                 console.error(err);
-                showToast('Erro ao exportar ficheiro JPEG.', 'error');
+                showToast('Erro técnico ao renderizar o JPEG.', 'error');
             });
         }
 
-        // Exportar ficha técnica em alta definição PDF de tamanho padrão A4
+        // Exportação impecável para documento PDF de tamanho padrão A4
         function downloadAsPDF() {
             const record = productionRecords.find(r => r.id === exportActiveRecordId);
             if (!record) return;
 
-            showToast('A preparar descarregamento do PDF... Aguarde.', 'info');
+            showToast('A preparar e compilar o PDF executivo...', 'info');
 
             const element = document.getElementById('print-sheet');
-            
             const options = {
                 useCORS: true,
-                scale: 2.5, // Resolução premium para visualização de fotografias no PDF
+                scale: 2.5,
                 backgroundColor: '#ffffff',
                 logging: false
             };
 
             html2canvas(element, options).then(canvas => {
                 const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                
                 const { jsPDF } = window.jspdf;
-                // Dimensões padrão do papel A4 em milímetros (210 x 297 mm)
+                
+                // Formato padrão A4
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 const pdfWidth = 210;
                 const pdfHeight = 297;
                 
-                // Cálculo proporcional da imagem para manter aspect ratio impecável
                 const imgWidth = pdfWidth;
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 
                 let heightLeft = imgHeight;
                 let position = 0;
 
-                // Página 1
                 pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pdfHeight;
 
-                // Páginas adicionais caso as imagens expandam o documento verticalmente
                 while (heightLeft >= 0) {
                     position = heightLeft - imgHeight;
                     pdf.addPage();
@@ -1076,13 +1224,11 @@
                 }
 
                 const safeCrop = record.crop.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                const safeDate = record.date;
-                pdf.save(`Relatorio_Tecnico_Producao_${safeCrop}_${safeDate}.pdf`);
-                
-                showToast('PDF descarregado com sucesso!');
+                pdf.save(`Relatorio_Operacional_${safeCrop}_${record.date}.pdf`);
+                showToast('PDF Técnico descarregado com sucesso!');
             }).catch(err => {
                 console.error(err);
-                showToast('Erro ao exportar PDF.', 'error');
+                showToast('Erro técnico ao compilar o PDF.', 'error');
             });
         }
     </script>
