@@ -144,33 +144,38 @@
                                 class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
                         </div>
                         <div>
-                            <label for="reg-total-evaluated" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Total Avaliado (Cabeças) *</label>
+                            <label for="reg-total-evaluated" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Total Avaliado *</label>
                             <input type="number" id="reg-total-evaluated" required min="1" placeholder="0"
                                 class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
                         </div>
                     </div>
                     
-                    <!-- Linha 2: Colheita, Deformadas, Abaixo Peso, Média -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="reg-ready-harvest" class="block text-[10px] font-bold text-emerald-700 uppercase tracking-wider mb-2 truncate">P/ Colheita *</label>
+                    <!-- Linha 2: Colheita, Não Colher, Deformadas, Abaixo Peso, Média -->
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                        <div class="col-span-1">
+                            <label for="reg-ready-harvest" class="block text-[10px] font-bold text-emerald-700 uppercase tracking-wider mb-2 truncate" title="Para Colheita">P/ Colheita *</label>
                             <input type="number" id="reg-ready-harvest" required min="0" placeholder="0" value="0"
-                                class="w-full rounded-xl border border-emerald-200 bg-emerald-50/30 px-3 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none">
+                                class="w-full rounded-xl border border-emerald-200 bg-emerald-50/30 px-3 py-3 text-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all outline-none text-center">
                         </div>
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="reg-deformed" class="block text-[10px] font-bold text-rose-700 uppercase tracking-wider mb-2 truncate">Deformadas</label>
+                        <div class="col-span-1">
+                            <label for="reg-not-harvested" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 truncate" title="Não Colher">Não Colher</label>
+                            <input type="number" id="reg-not-harvested" min="0" placeholder="0" value="0"
+                                class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3 py-3 text-slate-800 focus:border-slate-400 focus:ring-1 focus:ring-slate-400 focus:bg-white transition-all outline-none text-center">
+                        </div>
+                        <div class="col-span-1">
+                            <label for="reg-deformed" class="block text-[10px] font-bold text-rose-700 uppercase tracking-wider mb-2 truncate" title="Deformadas">Deformadas</label>
                             <input type="number" id="reg-deformed" min="0" placeholder="0" value="0"
-                                class="w-full rounded-xl border border-rose-200 bg-rose-50/30 px-3 py-3 text-slate-800 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 focus:bg-white transition-all outline-none">
+                                class="w-full rounded-xl border border-rose-200 bg-rose-50/30 px-3 py-3 text-slate-800 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 focus:bg-white transition-all outline-none text-center">
                         </div>
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="reg-underweight" class="block text-[10px] font-bold text-amber-700 uppercase tracking-wider mb-2 truncate">Abaixo Peso</label>
+                        <div class="col-span-1">
+                            <label for="reg-underweight" class="block text-[10px] font-bold text-amber-700 uppercase tracking-wider mb-2 truncate" title="Abaixo Peso">Sub-peso</label>
                             <input type="number" id="reg-underweight" min="0" placeholder="0" value="0"
-                                class="w-full rounded-xl border border-amber-200 bg-amber-50/30 px-3 py-3 text-slate-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all outline-none">
+                                class="w-full rounded-xl border border-amber-200 bg-amber-50/30 px-3 py-3 text-slate-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all outline-none text-center">
                         </div>
                         <div class="col-span-2 sm:col-span-1">
-                            <label for="reg-avg-size" class="block text-[10px] font-bold text-sky-700 uppercase tracking-wider mb-2 truncate">Média Cm *</label>
+                            <label for="reg-avg-size" class="block text-[10px] font-bold text-sky-700 uppercase tracking-wider mb-2 truncate" title="Média Cm">Média Cm *</label>
                             <input type="number" id="reg-avg-size" step="0.1" required min="0" placeholder="0.0"
-                                class="w-full rounded-xl border border-sky-200 bg-sky-50/30 px-3 py-3 text-slate-800 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:bg-white transition-all outline-none">
+                                class="w-full rounded-xl border border-sky-200 bg-sky-50/30 px-3 py-3 text-slate-800 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:bg-white transition-all outline-none text-center">
                         </div>
                     </div>
                 </div>
@@ -353,10 +358,16 @@
                                 <span class="text-[9px] text-slate-400 font-bold uppercase block leading-tight text-center w-full">Total Avaliado</span>
                                 <p id="print-total-canteiros" class="text-lg font-black text-slate-800 mt-1 text-center w-full">0</p>
                             </div>
+                            
                             <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
                                 <span class="text-[9px] text-emerald-600 font-bold uppercase block leading-tight text-center w-full">Para Colheita</span>
                                 <p id="print-colher" class="text-lg font-black text-emerald-700 mt-1 text-center w-full">0</p>
                             </div>
+                            <div class="bg-slate-100 border border-slate-200 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-slate-500 font-bold uppercase block leading-tight text-center w-full">Não Colher</span>
+                                <p id="print-nao-colher" class="text-lg font-black text-slate-600 mt-1 text-center w-full">0</p>
+                            </div>
+                            
                             <div class="bg-rose-50 border border-rose-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
                                 <span class="text-[9px] text-rose-500 font-bold uppercase block leading-tight text-center w-full">Deformadas</span>
                                 <p id="print-deformadas" class="text-lg font-black text-rose-600 mt-1 text-center w-full">0</p>
@@ -365,7 +376,8 @@
                                 <span class="text-[9px] text-amber-600 font-bold uppercase block leading-tight text-center w-full">Abaixo Peso</span>
                                 <p id="print-abaixo-peso" class="text-lg font-black text-amber-600 mt-1 text-center w-full">0</p>
                             </div>
-                            <div class="bg-sky-50 border border-sky-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
+
+                            <div class="bg-sky-50 border border-sky-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center col-span-2">
                                 <span class="text-[9px] text-sky-600 font-bold uppercase block leading-tight text-center w-full">Média (cm)</span>
                                 <p id="print-media-cm" class="text-lg font-black text-sky-700 mt-1 text-center w-full">0.0</p>
                             </div>
@@ -520,7 +532,7 @@
             }
         }
 
-        // Processar seleção de imagens específicas por categoria (aceita múltiplas imagens de forma incremental)
+        // Processar seleção de imagens específicas por categoria
         function handlePhotoCategorySelect(event, category) {
             const files = event.target.files;
             if (!files || files.length === 0) return;
@@ -556,13 +568,12 @@
             function checkDone() {
                 if (processedCount === targetCount) {
                     renderPhotoPreviewsForCategory(category);
-                    // Reset input value to allow selecting the same file again and trigger change
                     event.target.value = ''; 
                 }
             }
         }
 
-        // Renderizar miniaturas dinâmicas das fotos por categorias no formulário
+        // Renderizar miniaturas dinâmicas das fotos
         function renderPhotoPreviewsForCategory(category) {
             let containerId = '';
             let list = [];
@@ -596,7 +607,6 @@
             });
         }
 
-        // Remover foto carregada do formulário
         function removePhotoFromCategory(category, index) {
             if (category === 'deformed') {
                 currentPhotosDeformed.splice(index, 1);
@@ -608,7 +618,6 @@
             renderPhotoPreviewsForCategory(category);
         }
 
-        // Alternar caixas de inputs adicionais para dados "Outros"
         function toggleBlockCustomInput(value) {
             const container = document.getElementById('block-custom-container');
             const customInput = document.getElementById('reg-block-custom');
@@ -643,7 +652,7 @@
             }
         }
 
-        // Submeter formulário principal (Salvar ou Editar)
+        // Submeter formulário principal
         function handleFormSubmit(e) {
             e.preventDefault();
 
@@ -671,6 +680,7 @@
             const totalBeds = parseInt(document.getElementById('reg-total-beds').value) || 0;
             const totalEvaluated = parseInt(document.getElementById('reg-total-evaluated').value) || 0;
             const readyHarvest = parseInt(document.getElementById('reg-ready-harvest').value) || 0;
+            const notHarvestedVal = parseInt(document.getElementById('reg-not-harvested').value) || 0;
             const deformedVal = parseInt(document.getElementById('reg-deformed').value) || 0;
             const underweightVal = parseInt(document.getElementById('reg-underweight').value) || 0;
             const avgSize = parseFloat(document.getElementById('reg-avg-size').value) || 0.0;
@@ -688,6 +698,7 @@
                         totalBeds: totalBeds,
                         totalEvaluated: totalEvaluated,
                         readyHarvest: readyHarvest,
+                        notHarvested: notHarvestedVal,
                         deformed: deformedVal,
                         underweight: underweightVal,
                         avgSize: avgSize,
@@ -712,6 +723,7 @@
                     totalBeds: totalBeds,
                     totalEvaluated: totalEvaluated,
                     readyHarvest: readyHarvest,
+                    notHarvested: notHarvestedVal,
                     deformed: deformedVal,
                     underweight: underweightVal,
                     avgSize: avgSize,
@@ -730,7 +742,7 @@
             updateStatsBadges();
         }
 
-        // Limpar todos os inputs e ficheiros do formulário
+        // Limpar todos os inputs e ficheiros
         function resetForm() {
             document.getElementById('production-form').reset();
             currentPhotosDeformed = [];
@@ -749,7 +761,6 @@
             updateWeekByDate(today);
         }
 
-        // Cancelar modo de edição
         function cancelEditing() {
             editingRecordId = null;
             document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-circle-plus text-emerald-600"></i> Novo Registo Técnico`;
@@ -758,7 +769,6 @@
             resetForm();
         }
 
-        // Carregar registo selecionado para edição
         function editRecord(id) {
             const record = productionRecords.find(r => r.id === id);
             if (!record) return;
@@ -795,14 +805,16 @@
             }
 
             document.getElementById('reg-total-beds').value = record.totalBeds || 0;
-            // Backwards compatibility para registos antigos
+            
             const evaluated = record.totalEvaluated || record.toHarvest || 0;
             const deformedVal = record.deformed || 0;
             const underweightVal = record.underweight || 0;
             const readyVal = record.readyHarvest !== undefined ? record.readyHarvest : Math.max(0, evaluated - deformedVal - underweightVal);
+            const notHarvestedVal = record.notHarvested || 0;
 
             document.getElementById('reg-total-evaluated').value = evaluated;
             document.getElementById('reg-ready-harvest').value = readyVal;
+            document.getElementById('reg-not-harvested').value = notHarvestedVal;
             document.getElementById('reg-deformed').value = deformedVal;
             document.getElementById('reg-underweight').value = underweightVal;
             document.getElementById('reg-avg-size').value = record.avgSize;
@@ -819,7 +831,6 @@
             showToast('Dados de produção carregados no painel de edição.', 'info');
         }
 
-        // Apagar registo permanente do histórico
         function deleteRecord(id) {
             showCustomModal(
                 'Remover Registo Técnico?',
@@ -843,12 +854,10 @@
             );
         }
 
-        // Guardar lista localmente
         function saveToLocalStorage() {
             localStorage.setItem('reg_prod_records_v4', JSON.stringify(productionRecords));
         }
 
-        // Exibir Notificações Toast no Ecrã
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             if (!container) return;
@@ -878,7 +887,6 @@
             }, 3500);
         }
 
-        // Modal customizado para diálogos de aviso/remoção
         function showCustomModal(title, message, iconType, onConfirm) {
             const modal = document.getElementById('custom-modal');
             const modalTitle = document.getElementById('modal-title');
@@ -913,7 +921,7 @@
             };
         }
 
-        // Renderizar todos os cartões de histórico com Gráfico de Barras Chart.js
+        // Renderizar todos os cartões de histórico
         function renderRecords(recordsToRender = productionRecords) {
             const listContainer = document.getElementById('records-list');
             const emptyState = document.getElementById('empty-state');
@@ -936,10 +944,10 @@
                 const parts = record.date.split('-');
                 const formattedDate = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : record.date;
 
-                // Extração dos dados e fallback para registos anteriores
                 const totalEvaluated = record.totalEvaluated || record.toHarvest || 1;
                 const deformedCount = record.deformed || 0;
                 const underweightCount = record.underweight || 0;
+                const notHarvestedCount = record.notHarvested || 0;
                 const readyHarvestCount = record.readyHarvest !== undefined ? record.readyHarvest : Math.max(0, totalEvaluated - deformedCount - underweightCount);
 
                 const totalPhotos = (record.photosDeformed?.length || 0) + 
@@ -986,26 +994,31 @@
                     </div>
 
                     <!-- Zona Analítica (Gráfico de Barras + Flashcards) -->
-                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-white p-4 rounded-2xl border border-slate-100">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center bg-white p-4 rounded-2xl border border-slate-100">
                         
                         <!-- Gráfico de Barras com Linha de Tendência -->
-                        <div class="sm:col-span-6 w-full h-40 relative">
+                        <div class="md:col-span-7 w-full h-44 relative">
                             <canvas id="${chartCanvasId}"></canvas>
                         </div>
 
                         <!-- Flashcards de Dados -->
-                        <div class="sm:col-span-6 grid grid-cols-2 gap-2">
-                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
+                        <div class="md:col-span-5 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 gap-2">
+                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center col-span-1 sm:col-span-2 md:col-span-1">
                                 <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block mb-1">Canteiros</span>
                                 <span class="text-xs font-extrabold text-slate-700">${record.totalBeds}</span>
                             </div>
-                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center">
+                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center col-span-1 sm:col-span-2 md:col-span-1">
                                 <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block mb-1">Avaliado</span>
                                 <span class="text-xs font-extrabold text-slate-700">${totalEvaluated}</span>
                             </div>
+                            
                             <div class="bg-emerald-50/55 p-2 rounded-xl border border-emerald-100 flex flex-col items-center justify-center text-center">
                                 <span class="text-[9px] text-emerald-600 font-bold uppercase tracking-wider block mb-1">P/ Colheita</span>
                                 <span class="text-xs font-extrabold text-emerald-700">${readyHarvestCount}</span>
+                            </div>
+                            <div class="bg-slate-100/80 p-2 rounded-xl border border-slate-200 flex flex-col items-center justify-center text-center">
+                                <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider block mb-1">Não Colher</span>
+                                <span class="text-xs font-extrabold text-slate-600">${notHarvestedCount}</span>
                             </div>
                             <div class="bg-rose-50/55 p-2 rounded-xl border border-rose-100 flex flex-col items-center justify-center text-center">
                                 <span class="text-[9px] text-rose-600 font-bold uppercase tracking-wider block mb-1">Deformadas</span>
@@ -1015,7 +1028,8 @@
                                 <span class="text-[9px] text-amber-600 font-bold uppercase tracking-wider block mb-1">Sub-peso</span>
                                 <span class="text-xs font-extrabold text-amber-600">${underweightCount}</span>
                             </div>
-                            <div class="bg-sky-50/55 p-2 rounded-xl border border-sky-100 flex flex-col items-center justify-center text-center">
+
+                            <div class="bg-sky-50/55 p-2 rounded-xl border border-sky-100 flex flex-col items-center justify-center text-center col-span-2 sm:col-span-4 md:col-span-2">
                                 <span class="text-[9px] text-sky-600 font-bold uppercase tracking-wider block mb-1">Média Cm</span>
                                 <span class="text-xs font-extrabold text-sky-700">${Number(record.avgSize).toFixed(1)}</span>
                             </div>
@@ -1049,7 +1063,7 @@
                 listContainer.appendChild(card);
             });
 
-            // Inicializar os gráficos após renderizar o HTML
+            // Inicializar os gráficos após renderizar
             recordsToRender.forEach(record => {
                 const ctx = document.getElementById(`chart-${record.id}`);
                 if (!ctx) return;
@@ -1061,37 +1075,39 @@
                 const totalEvaluated = record.totalEvaluated || record.toHarvest || 1;
                 const deformedCount = record.deformed || 0;
                 const underweightCount = record.underweight || 0;
+                const notHarvestedCount = record.notHarvested || 0;
                 const readyHarvestCount = record.readyHarvest !== undefined ? record.readyHarvest : Math.max(0, totalEvaluated - deformedCount - underweightCount);
 
-                const dataValues = [readyHarvestCount, deformedCount, underweightCount];
+                const dataValues = [readyHarvestCount, notHarvestedCount, deformedCount, underweightCount];
                 
                 chartInstances[record.id] = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['Colheita', 'Deformadas', 'Sub-peso'],
+                        labels: ['Colheita', 'Não Colher', 'Deformadas', 'Sub-peso'],
                         datasets: [
                             {
                                 type: 'line',
                                 label: 'Tendência',
                                 data: dataValues,
-                                borderColor: '#3b82f6',
-                                borderWidth: 2,
-                                tension: 0.3,
-                                fill: false,
-                                pointBackgroundColor: '#3b82f6',
-                                pointRadius: 4,
-                                order: 1, // Draw on top
-                                datalabels: {
-                                    display: false // Ocultar labels na linha para não duplicar
-                                }
+                                borderColor: '#6366f1', // Tom de índigo (mais moderno)
+                                backgroundColor: 'rgba(99, 102, 241, 0.1)', // Preenchimento subtil
+                                fill: true,
+                                borderWidth: 3,
+                                tension: 0.4, // Curva mais suave
+                                pointBackgroundColor: '#ffffff',
+                                pointBorderColor: '#6366f1',
+                                pointBorderWidth: 2,
+                                pointRadius: 5,
+                                order: 1,
+                                datalabels: { display: false }
                             },
                             {
                                 type: 'bar',
                                 label: 'Quantidade',
                                 data: dataValues,
-                                backgroundColor: ['#10b981', '#f43f5e', '#f59e0b'],
-                                borderRadius: 4,
-                                barPercentage: 0.6,
+                                backgroundColor: ['#10b981', '#94a3b8', '#f43f5e', '#f59e0b'],
+                                borderRadius: 6,
+                                barPercentage: 0.5,
                                 order: 2
                             }
                         ]
@@ -1101,7 +1117,7 @@
                         maintainAspectRatio: false,
                         plugins: {
                             legend: { display: false },
-                            tooltip: { enabled: false }, // Simplificar ui sem tooltips nativos se desejado, ou deixar enabled
+                            tooltip: { enabled: true, backgroundColor: 'rgba(15, 23, 42, 0.9)' },
                             datalabels: {
                                 anchor: 'end',
                                 align: 'top',
@@ -1110,22 +1126,21 @@
                                     const percentage = ((value / totalEvaluated) * 100).toFixed(1) + '%';
                                     return `${value}\n(${percentage})`;
                                 },
-                                font: { size: 9, weight: 'bold', family: 'Inter' },
+                                font: { size: 10, weight: 'bold', family: 'Inter' },
                                 textAlign: 'center',
                                 color: '#475569'
                             }
                         },
                         scales: {
-                            y: { display: false, beginAtZero: true, suggestedMax: Math.max(...dataValues) * 1.3 }, // Espaço para os labels
-                            x: { grid: { display: false }, ticks: { font: { size: 10, family: 'Inter' } }, border: {display: false} }
+                            y: { display: false, beginAtZero: true, suggestedMax: Math.max(...dataValues) * 1.3 }, 
+                            x: { grid: { display: false }, ticks: { font: { size: 10, weight: '600', family: 'Inter' }, color: '#64748b' }, border: {display: false} }
                         },
-                        layout: { padding: { top: 25 } }
+                        layout: { padding: { top: 30 } }
                     }
                 });
             });
         }
 
-        // Pesquisa e filtro do histórico
         function filterRecords() {
             const query = document.getElementById('search-input').value.toLowerCase().trim();
             if (!query) {
@@ -1141,7 +1156,6 @@
             renderRecords(filtered);
         }
 
-        // Carregar dados no modal de exportação executiva
         function openExportModal(recordId) {
             const record = productionRecords.find(r => r.id === recordId);
             if (!record) return;
@@ -1156,47 +1170,49 @@
             document.getElementById('print-bloco').innerText = record.block;
             document.getElementById('print-cultura').innerText = record.crop;
             
-            // Cálculos
             const totalEvaluated = record.totalEvaluated || record.toHarvest || 1;
             const deformedVal = record.deformed || 0;
             const underweightVal = record.underweight || 0;
+            const notHarvestedVal = record.notHarvested || 0;
             const readyVal = record.readyHarvest !== undefined ? record.readyHarvest : Math.max(0, totalEvaluated - deformedVal - underweightVal);
 
             document.getElementById('print-total-canteiros').innerText = totalEvaluated;
             document.getElementById('print-colher').innerText = readyVal;
+            document.getElementById('print-nao-colher').innerText = notHarvestedVal;
             document.getElementById('print-deformadas').innerText = deformedVal;
             document.getElementById('print-abaixo-peso').innerText = underweightVal;
             document.getElementById('print-media-cm').innerText = `${Number(record.avgSize).toFixed(1)}`;
 
-            // Data e hora de emissão do relatório
             const now = new Date();
             const dateStr = now.toLocaleDateString('pt-PT');
             const timeStr = now.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
             document.getElementById('print-sheet-timestamp').innerText = `${dateStr} às ${timeStr}`;
 
-            // Renderizar Gráfico de Barras com Linha de Tendência no Documento Oficial
             const ctxPrint = document.getElementById('print-chart-canvas');
             if(printChartInstance) {
                 printChartInstance.destroy();
             }
 
-            const dataValues = [readyVal, deformedVal, underweightVal];
+            const dataValues = [readyVal, notHarvestedVal, deformedVal, underweightVal];
             
             printChartInstance = new Chart(ctxPrint, {
                 type: 'bar',
                 data: {
-                    labels: ['Para Colheita', 'Deformadas', 'Abaixo do Peso'],
+                    labels: ['Para Colheita', 'Não Colher', 'Deformadas', 'Abaixo do Peso'],
                     datasets: [
                         {
                             type: 'line',
                             label: 'Tendência',
                             data: dataValues,
-                            borderColor: '#3b82f6',
-                            borderWidth: 2.5,
-                            tension: 0.3,
-                            fill: false,
-                            pointBackgroundColor: '#3b82f6',
-                            pointRadius: 5,
+                            borderColor: '#6366f1',
+                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            fill: true,
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointBackgroundColor: '#ffffff',
+                            pointBorderColor: '#6366f1',
+                            pointBorderWidth: 2,
+                            pointRadius: 6,
                             order: 1,
                             datalabels: { display: false }
                         },
@@ -1204,9 +1220,9 @@
                             type: 'bar',
                             label: 'Quantidades',
                             data: dataValues,
-                            backgroundColor: ['#10b981', '#f43f5e', '#f59e0b'],
-                            borderRadius: 6,
-                            barPercentage: 0.5,
+                            backgroundColor: ['#10b981', '#94a3b8', '#f43f5e', '#f59e0b'],
+                            borderRadius: 8,
+                            barPercentage: 0.55,
                             order: 2
                         }
                     ]
@@ -1214,7 +1230,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    animation: false, // Fundamental para o html2canvas conseguir capturar o gráfico já renderizado
+                    animation: false, 
                     plugins: {
                         legend: { display: false },
                         datalabels: {
@@ -1232,13 +1248,12 @@
                     },
                     scales: {
                         y: { display: false, beginAtZero: true, suggestedMax: Math.max(...dataValues) * 1.3 },
-                        x: { grid: { display: false }, ticks: { font: { size: 12, weight: '600', family: 'Inter' } }, border: {display: false} }
+                        x: { grid: { display: false }, ticks: { font: { size: 12, weight: '600', family: 'Inter' }, color: '#475569' }, border: {display: false} }
                     },
-                    layout: { padding: { top: 35 } }
+                    layout: { padding: { top: 40 } }
                 }
             });
 
-            // Renderizar categorias de fotos de forma proporcional
             renderPrintPhotoCategory('print-photos-deformed', 'print-category-deformed-section', record.photosDeformed, 'Frente de Anomalia (Deformada)');
             renderPrintPhotoCategory('print-photos-underweight', 'print-category-underweight-section', record.photosUnderweight, 'Frente de Baixo Peso');
             renderPrintPhotoCategory('print-photos-harvest', 'print-category-harvest-section', record.photosToHarvest, 'Padrão Comercial Colhido');
@@ -1250,7 +1265,6 @@
             }
         }
 
-        // Renderizar fotos de campo mantendo a proporção de forma rígida
         function renderPrintPhotoCategory(containerId, sectionId, list, typeLabel) {
             const container = document.getElementById(containerId);
             const section = document.getElementById(sectionId);
@@ -1275,7 +1289,6 @@
             }
         }
 
-        // Fechar modal de visualização de exportação
         function closeExportModal() {
             const modal = document.getElementById('export-modal');
             if (modal) {
@@ -1285,7 +1298,6 @@
             exportActiveRecordId = null;
         }
 
-        // Exportação estável para JPEG de alta resolução
         function downloadAsJPEG() {
             const record = productionRecords.find(r => r.id === exportActiveRecordId);
             if (!record) return;
@@ -1313,10 +1325,9 @@
                     console.error(err);
                     showToast('Erro técnico ao renderizar o JPEG.', 'error');
                 });
-            }, 300); // pequeno delay para garantir que o chart finalizou pintura (embora animation seja false)
+            }, 300);
         }
 
-        // Exportação impecável para documento PDF de tamanho padrão A4
         function downloadAsPDF() {
             const record = productionRecords.find(r => r.id === exportActiveRecordId);
             if (!record) return;
