@@ -43,6 +43,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 
+    <!-- Cabeçalho -->
     <header class="bg-gradient-to-r from-emerald-800 to-teal-700 text-white shadow-lg border-b border-emerald-900 sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
@@ -71,10 +72,11 @@
     <!-- Contentor Principal -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
+        <!-- Secção do Formulário (Coluna Esquerda) -->
         <section class="lg:col-span-5 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-6 flex flex-col self-start">
             <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                 <h2 id="form-title" class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <i class="fa-solid fa-circle-plus text-emerald-600"></i> Novo Registro Técnico
+                    <i class="fa-solid fa-circle-plus text-emerald-600"></i> Novo Registo Técnico
                 </h2>
                 <button id="btn-cancel-edit" class="hidden text-xs text-rose-500 hover:text-rose-700 font-semibold px-2 py-1 rounded-md bg-rose-50 hover:bg-rose-100 transition-colors">
                     Cancelar Edição
@@ -148,8 +150,8 @@
                         </div>
                     </div>
                     
-                    <!-- Linha 2: Colheita, Não Colher, Deformadas, Abaixo Peso -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <!-- Linha 2: Colheita, Não Colher, Deformadas, Abaixo Peso, Média Peso -->
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
                         <div class="col-span-1">
                             <label for="reg-ready-harvest" class="block text-[10px] font-bold text-emerald-700 uppercase tracking-wider mb-2 truncate" title="Para Colheita">P/ Colheita *</label>
                             <input type="number" id="reg-ready-harvest" required min="0" placeholder="0" value="0"
@@ -170,17 +172,8 @@
                             <input type="number" id="reg-underweight" min="0" placeholder="0" value="0"
                                 class="w-full rounded-xl border border-amber-200 bg-amber-50/30 px-3 py-3 text-slate-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all outline-none text-center">
                         </div>
-                    </div>
-
-                    <!-- Linha 3: Médias (Tamanho e Peso) -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
-                        <div>
-                            <label for="reg-avg-size" class="block text-[10px] font-bold text-sky-700 uppercase tracking-wider mb-2 truncate" title="Média Tamanho (cm)">Média Cm *</label>
-                            <input type="number" id="reg-avg-size" step="0.1" required min="0" placeholder="0.0"
-                                class="w-full rounded-xl border border-sky-200 bg-sky-50/30 px-3 py-3 text-slate-800 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:bg-white transition-all outline-none text-center">
-                        </div>
-                        <div>
-                            <label for="reg-avg-weight" class="block text-[10px] font-bold text-indigo-700 uppercase tracking-wider mb-2 truncate" title="Média Peso (g/kg)">Média Peso *</label>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="reg-avg-weight" class="block text-[10px] font-bold text-indigo-700 uppercase tracking-wider mb-2 truncate" title="Média Peso">Média Peso *</label>
                             <input type="number" id="reg-avg-weight" step="0.01" required min="0" placeholder="0.00"
                                 class="w-full rounded-xl border border-indigo-200 bg-indigo-50/30 px-3 py-3 text-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white transition-all outline-none text-center">
                         </div>
@@ -214,9 +207,20 @@
                         <div id="preview-underweight" class="grid grid-cols-4 gap-2 empty:hidden"></div>
                     </div>
 
-                    <!-- Categoria 3: Cabeças a Colher (Boas) -->
+                    <!-- Categoria 3: Cabeças Não Colher (NEW) -->
                     <div class="space-y-2">
-                        <label class="block text-[11px] font-bold text-emerald-700 uppercase tracking-wider">3. Fotos de Cabeças a Colher</label>
+                        <label class="block text-[11px] font-bold text-slate-600 uppercase tracking-wider">3. Fotos de Cabeças Não Colher</label>
+                        <div onclick="triggerFileInput('notharvested')" class="border border-dashed border-slate-300 rounded-xl p-3 text-center cursor-pointer hover:bg-slate-50 transition-all flex flex-col items-center justify-center">
+                            <input type="file" id="photos-notharvested-input" multiple accept="image/*" class="hidden" onchange="handlePhotoCategorySelect(event, 'notharvested')">
+                            <i class="fa-solid fa-ban text-slate-500 mb-1"></i>
+                            <span class="text-[10px] font-bold text-slate-600">Clique para anexar foto(s)</span>
+                        </div>
+                        <div id="preview-notharvested" class="grid grid-cols-4 gap-2 empty:hidden"></div>
+                    </div>
+
+                    <!-- Categoria 4: Cabeças a Colher (Boas) -->
+                    <div class="space-y-2">
+                        <label class="block text-[11px] font-bold text-emerald-700 uppercase tracking-wider">4. Fotos de Cabeças a Colher</label>
                         <div onclick="triggerFileInput('harvest')" class="border border-dashed border-emerald-300 rounded-xl p-3 text-center cursor-pointer hover:bg-emerald-50/30 transition-all flex flex-col items-center justify-center">
                             <input type="file" id="photos-harvest-input" multiple accept="image/*" class="hidden" onchange="handlePhotoCategorySelect(event, 'harvest')">
                             <i class="fa-solid fa-circle-check text-emerald-500 mb-1"></i>
@@ -239,7 +243,7 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
                 <div>
                     <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-solid fa-list-check text-teal-600"></i> Histórico de Registros
+                        <i class="fa-solid fa-list-check text-teal-600"></i> Histórico de Registos
                     </h2>
                     <p class="text-slate-400 text-xs font-medium">Análise de Rendimento e Perdas de Campo</p>
                 </div>
@@ -262,7 +266,7 @@
                         <i class="fa-solid fa-clipboard-list text-4xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-slate-700">Nenhum registro encontrado</h3>
+                        <h3 class="text-base font-bold text-slate-700">Nenhum registo encontrado</h3>
                         <p class="text-slate-400 text-xs max-w-sm mt-1 mx-auto">Lance os dados operacionais e as fotos de inspeção no painel esquerdo.</p>
                     </div>
                 </div>
@@ -319,7 +323,7 @@
                             <img src="https://i.imgur.com/wEozr34.png" alt="Logótipo" class="h-14 w-auto object-contain bg-transparent border-0 outline-none" onerror="this.onerror=null; this.src='https://placehold.co/100x100/10b981/ffffff?text=Logo';">
                             <div>
                                 <span class="text-[10px] font-bold tracking-wider text-emerald-700 uppercase bg-emerald-100 px-3 py-1 rounded-full">Ficha Técnica Oficial</span>
-                                <h2 class="text-2xl font-black text-slate-900 mt-2">REGISTRO TÉCNICO DE PRODUÇÃO</h2>
+                                <h2 class="text-2xl font-black text-slate-900 mt-2">REGISTO TÉCNICO DE PRODUÇÃO</h2>
                                 <p class="text-emerald-700 font-semibold text-sm">Resumo Operacional Técnico</p>
                             </div>
                         </div>
@@ -384,13 +388,9 @@
                                 <p id="print-abaixo-peso" class="text-lg font-black text-amber-600 mt-1 text-center w-full">0</p>
                             </div>
 
-                            <div class="bg-sky-50 border border-sky-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center col-span-1">
-                                <span class="text-[9px] text-sky-600 font-bold uppercase block leading-tight text-center w-full">Média (cm)</span>
-                                <p id="print-media-cm" class="text-lg font-black text-sky-700 mt-1 text-center w-full">0.0</p>
-                            </div>
-                            <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center col-span-1">
+                            <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center col-span-2">
                                 <span class="text-[9px] text-indigo-600 font-bold uppercase block leading-tight text-center w-full">Média Peso</span>
-                                <p id="print-media-peso" class="text-lg font-black text-indigo-700 mt-1 text-center w-full">0.0</p>
+                                <p id="print-media-peso" class="text-lg font-black text-indigo-700 mt-1 text-center w-full">0.00</p>
                             </div>
                         </div>
                     </div>
@@ -415,6 +415,14 @@
                                 <span class="w-2 h-2 rounded-full bg-amber-500"></span> Registos de Cabeças Abaixo do Peso
                             </h5>
                             <div id="print-photos-underweight" class="grid grid-cols-2 gap-4"></div>
+                        </div>
+
+                        <!-- Categoria: Não Colher (NEW) -->
+                        <div id="print-category-notharvested-section" class="space-y-2">
+                            <h5 class="text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-slate-500"></span> Registos de Cabeças Não Colher
+                            </h5>
+                            <div id="print-photos-notharvested" class="grid grid-cols-2 gap-4"></div>
                         </div>
 
                         <!-- Categoria: Cabeças Boas -->
@@ -462,6 +470,7 @@
         // Listas temporárias de imagens base64 carregadas no formulário
         let currentPhotosDeformed = [];
         let currentPhotosUnderweight = [];
+        let currentPhotosNotHarvested = [];
         let currentPhotosToHarvest = [];
 
         // Inicialização da Aplicação
@@ -538,6 +547,8 @@
                 document.getElementById('photos-deformed-input').click();
             } else if (category === 'underweight') {
                 document.getElementById('photos-underweight-input').click();
+            } else if (category === 'notharvested') {
+                document.getElementById('photos-notharvested-input').click();
             } else if (category === 'harvest') {
                 document.getElementById('photos-harvest-input').click();
             }
@@ -566,6 +577,8 @@
                         currentPhotosDeformed.push(base64Data);
                     } else if (category === 'underweight') {
                         currentPhotosUnderweight.push(base64Data);
+                    } else if (category === 'notharvested') {
+                        currentPhotosNotHarvested.push(base64Data);
                     } else if (category === 'harvest') {
                         currentPhotosToHarvest.push(base64Data);
                     }
@@ -595,6 +608,9 @@
             } else if (category === 'underweight') {
                 containerId = 'preview-underweight';
                 list = currentPhotosUnderweight;
+            } else if (category === 'notharvested') {
+                containerId = 'preview-notharvested';
+                list = currentPhotosNotHarvested;
             } else if (category === 'harvest') {
                 containerId = 'preview-harvest';
                 list = currentPhotosToHarvest;
@@ -623,6 +639,8 @@
                 currentPhotosDeformed.splice(index, 1);
             } else if (category === 'underweight') {
                 currentPhotosUnderweight.splice(index, 1);
+            } else if (category === 'notharvested') {
+                currentPhotosNotHarvested.splice(index, 1);
             } else if (category === 'harvest') {
                 currentPhotosToHarvest.splice(index, 1);
             }
@@ -694,8 +712,7 @@
             const notHarvestedVal = parseInt(document.getElementById('reg-not-harvested').value) || 0;
             const deformedVal = parseInt(document.getElementById('reg-deformed').value) || 0;
             const underweightVal = parseInt(document.getElementById('reg-underweight').value) || 0;
-            const avgSize = parseFloat(document.getElementById('reg-avg-size').value) || 0.0;
-            const avgWeight = parseFloat(document.getElementById('reg-avg-weight').value) || 0.0;
+            const avgWeight = parseFloat(document.getElementById('reg-avg-weight').value) || 0.00;
 
             if (editingRecordId !== null) {
                 // Modo Edição
@@ -713,10 +730,10 @@
                         notHarvested: notHarvestedVal,
                         deformed: deformedVal,
                         underweight: underweightVal,
-                        avgSize: avgSize,
                         avgWeight: avgWeight,
                         photosDeformed: [...currentPhotosDeformed],
                         photosUnderweight: [...currentPhotosUnderweight],
+                        photosNotHarvested: [...currentPhotosNotHarvested],
                         photosToHarvest: [...currentPhotosToHarvest]
                     };
                     showToast('Registo Técnico atualizado com sucesso!');
@@ -739,10 +756,10 @@
                     notHarvested: notHarvestedVal,
                     deformed: deformedVal,
                     underweight: underweightVal,
-                    avgSize: avgSize,
                     avgWeight: avgWeight,
                     photosDeformed: [...currentPhotosDeformed],
                     photosUnderweight: [...currentPhotosUnderweight],
+                    photosNotHarvested: [...currentPhotosNotHarvested],
                     photosToHarvest: [...currentPhotosToHarvest]
                 };
                 
@@ -761,10 +778,12 @@
             document.getElementById('production-form').reset();
             currentPhotosDeformed = [];
             currentPhotosUnderweight = [];
+            currentPhotosNotHarvested = [];
             currentPhotosToHarvest = [];
             
             renderPhotoPreviewsForCategory('deformed');
             renderPhotoPreviewsForCategory('underweight');
+            renderPhotoPreviewsForCategory('notharvested');
             renderPhotoPreviewsForCategory('harvest');
 
             toggleBlockCustomInput('');
@@ -831,15 +850,16 @@
             document.getElementById('reg-not-harvested').value = notHarvestedVal;
             document.getElementById('reg-deformed').value = deformedVal;
             document.getElementById('reg-underweight').value = underweightVal;
-            document.getElementById('reg-avg-size').value = record.avgSize;
-            document.getElementById('reg-avg-weight').value = record.avgWeight || '';
+            document.getElementById('reg-avg-weight').value = record.avgWeight || 0.00;
 
             currentPhotosDeformed = [...(record.photosDeformed || [])];
             currentPhotosUnderweight = [...(record.photosUnderweight || [])];
+            currentPhotosNotHarvested = [...(record.photosNotHarvested || [])];
             currentPhotosToHarvest = [...(record.photosToHarvest || [])];
 
             renderPhotoPreviewsForCategory('deformed');
             renderPhotoPreviewsForCategory('underweight');
+            renderPhotoPreviewsForCategory('notharvested');
             renderPhotoPreviewsForCategory('harvest');
 
             document.getElementById('production-form').scrollIntoView({ behavior: 'smooth' });
@@ -967,6 +987,7 @@
 
                 const totalPhotos = (record.photosDeformed?.length || 0) + 
                                     (record.photosUnderweight?.length || 0) + 
+                                    (record.photosNotHarvested?.length || 0) +
                                     (record.photosToHarvest?.length || 0);
 
                 const chartCanvasId = `chart-${record.id}`;
@@ -1018,11 +1039,11 @@
 
                         <!-- Flashcards de Dados -->
                         <div class="md:col-span-5 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 gap-2">
-                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center col-span-1 sm:col-span-2 md:col-span-1">
+                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center col-span-1">
                                 <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block mb-1">Canteiros</span>
                                 <span class="text-xs font-extrabold text-slate-700">${record.totalBeds}</span>
                             </div>
-                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center col-span-1 sm:col-span-2 md:col-span-1">
+                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center text-center col-span-1">
                                 <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider block mb-1">Avaliado</span>
                                 <span class="text-xs font-extrabold text-slate-700">${totalEvaluated}</span>
                             </div>
@@ -1044,11 +1065,7 @@
                                 <span class="text-xs font-extrabold text-amber-600">${underweightCount}</span>
                             </div>
 
-                            <div class="bg-sky-50/55 p-2 rounded-xl border border-sky-100 flex flex-col items-center justify-center text-center col-span-1 sm:col-span-2 md:col-span-1">
-                                <span class="text-[9px] text-sky-600 font-bold uppercase tracking-wider block mb-1">Média Cm</span>
-                                <span class="text-xs font-extrabold text-sky-700">${Number(record.avgSize).toFixed(1)}</span>
-                            </div>
-                            <div class="bg-indigo-50/55 p-2 rounded-xl border border-indigo-100 flex flex-col items-center justify-center text-center col-span-1 sm:col-span-2 md:col-span-1">
+                            <div class="bg-indigo-50/55 p-2 rounded-xl border border-indigo-100 flex flex-col items-center justify-center text-center col-span-2 sm:col-span-4 md:col-span-2">
                                 <span class="text-[9px] text-indigo-600 font-bold uppercase tracking-wider block mb-1">Média Peso</span>
                                 <span class="text-xs font-extrabold text-indigo-700">${Number(record.avgWeight || 0).toFixed(2)}</span>
                             </div>
@@ -1068,6 +1085,11 @@
                                 ${record.photosUnderweight && record.photosUnderweight.length > 0 ? `
                                     <div class="flex items-center gap-1 bg-amber-50 border border-amber-100 px-2 py-1 rounded-lg text-[9px] font-bold text-amber-700">
                                         <i class="fa-solid fa-weight-hanging"></i> Sub-peso (${record.photosUnderweight.length})
+                                    </div>
+                                ` : ''}
+                                ${record.photosNotHarvested && record.photosNotHarvested.length > 0 ? `
+                                    <div class="flex items-center gap-1 bg-slate-100 border border-slate-200 px-2 py-1 rounded-lg text-[9px] font-bold text-slate-700">
+                                        <i class="fa-solid fa-ban"></i> Não Colher (${record.photosNotHarvested.length})
                                     </div>
                                 ` : ''}
                                 ${record.photosToHarvest && record.photosToHarvest.length > 0 ? `
@@ -1108,11 +1130,11 @@
                                 type: 'line',
                                 label: 'Tendência',
                                 data: dataValues,
-                                borderColor: '#6366f1', // Tom de índigo (mais moderno)
-                                backgroundColor: 'rgba(99, 102, 241, 0.1)', // Preenchimento subtil
+                                borderColor: '#6366f1', // Tom de índigo
+                                backgroundColor: 'rgba(99, 102, 241, 0.1)',
                                 fill: true,
                                 borderWidth: 3,
-                                tension: 0.4, // Curva mais suave
+                                tension: 0.4,
                                 pointBackgroundColor: '#ffffff',
                                 pointBorderColor: '#6366f1',
                                 pointBorderWidth: 2,
@@ -1200,7 +1222,6 @@
             document.getElementById('print-nao-colher').innerText = notHarvestedVal;
             document.getElementById('print-deformadas').innerText = deformedVal;
             document.getElementById('print-abaixo-peso').innerText = underweightVal;
-            document.getElementById('print-media-cm').innerText = `${Number(record.avgSize).toFixed(1)}`;
             document.getElementById('print-media-peso').innerText = `${Number(record.avgWeight || 0).toFixed(2)}`;
 
             const now = new Date();
@@ -1276,6 +1297,7 @@
 
             renderPrintPhotoCategory('print-photos-deformed', 'print-category-deformed-section', record.photosDeformed, 'Frente de Anomalia (Deformada)');
             renderPrintPhotoCategory('print-photos-underweight', 'print-category-underweight-section', record.photosUnderweight, 'Frente de Baixo Peso');
+            renderPrintPhotoCategory('print-photos-notharvested', 'print-category-notharvested-section', record.photosNotHarvested, 'Frente de Não Colher');
             renderPrintPhotoCategory('print-photos-harvest', 'print-category-harvest-section', record.photosToHarvest, 'Padrão Comercial Colhido');
 
             const modal = document.getElementById('export-modal');
