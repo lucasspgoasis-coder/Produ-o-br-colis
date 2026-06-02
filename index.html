@@ -43,7 +43,6 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 
-    <!-- Cabeçalho -->
     <header class="bg-gradient-to-r from-emerald-800 to-teal-700 text-white shadow-lg border-b border-emerald-900 sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
@@ -72,7 +71,6 @@
     <!-- Contentor Principal -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- Secção do Formulário (Coluna Esquerda) -->
         <section class="lg:col-span-5 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-6 flex flex-col self-start">
             <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                 <h2 id="form-title" class="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -150,8 +148,8 @@
                         </div>
                     </div>
                     
-                    <!-- Linha 2: Colheita, Não Colher, Deformadas, Abaixo Peso, Média -->
-                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    <!-- Linha 2: Colheita, Não Colher, Deformadas, Abaixo Peso -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         <div class="col-span-1">
                             <label for="reg-ready-harvest" class="block text-[10px] font-bold text-emerald-700 uppercase tracking-wider mb-2 truncate" title="Para Colheita">P/ Colheita *</label>
                             <input type="number" id="reg-ready-harvest" required min="0" placeholder="0" value="0"
@@ -172,10 +170,19 @@
                             <input type="number" id="reg-underweight" min="0" placeholder="0" value="0"
                                 class="w-full rounded-xl border border-amber-200 bg-amber-50/30 px-3 py-3 text-slate-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all outline-none text-center">
                         </div>
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="reg-avg-size" class="block text-[10px] font-bold text-sky-700 uppercase tracking-wider mb-2 truncate" title="Média Cm">Média Cm *</label>
+                    </div>
+
+                    <!-- Linha 3: Médias (Tamanho e Peso) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                        <div>
+                            <label for="reg-avg-size" class="block text-[10px] font-bold text-sky-700 uppercase tracking-wider mb-2 truncate" title="Média Tamanho (cm)">Média Cm *</label>
                             <input type="number" id="reg-avg-size" step="0.1" required min="0" placeholder="0.0"
                                 class="w-full rounded-xl border border-sky-200 bg-sky-50/30 px-3 py-3 text-slate-800 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:bg-white transition-all outline-none text-center">
+                        </div>
+                        <div>
+                            <label for="reg-avg-weight" class="block text-[10px] font-bold text-indigo-700 uppercase tracking-wider mb-2 truncate" title="Média Peso (g/kg)">Média Peso *</label>
+                            <input type="number" id="reg-avg-weight" step="0.01" required min="0" placeholder="0.00"
+                                class="w-full rounded-xl border border-indigo-200 bg-indigo-50/30 px-3 py-3 text-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white transition-all outline-none text-center">
                         </div>
                     </div>
                 </div>
@@ -377,9 +384,13 @@
                                 <p id="print-abaixo-peso" class="text-lg font-black text-amber-600 mt-1 text-center w-full">0</p>
                             </div>
 
-                            <div class="bg-sky-50 border border-sky-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center col-span-2">
+                            <div class="bg-sky-50 border border-sky-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center col-span-1">
                                 <span class="text-[9px] text-sky-600 font-bold uppercase block leading-tight text-center w-full">Média (cm)</span>
                                 <p id="print-media-cm" class="text-lg font-black text-sky-700 mt-1 text-center w-full">0.0</p>
+                            </div>
+                            <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-2xl flex flex-col items-center justify-center text-center col-span-1">
+                                <span class="text-[9px] text-indigo-600 font-bold uppercase block leading-tight text-center w-full">Média Peso</span>
+                                <p id="print-media-peso" class="text-lg font-black text-indigo-700 mt-1 text-center w-full">0.0</p>
                             </div>
                         </div>
                     </div>
@@ -684,6 +695,7 @@
             const deformedVal = parseInt(document.getElementById('reg-deformed').value) || 0;
             const underweightVal = parseInt(document.getElementById('reg-underweight').value) || 0;
             const avgSize = parseFloat(document.getElementById('reg-avg-size').value) || 0.0;
+            const avgWeight = parseFloat(document.getElementById('reg-avg-weight').value) || 0.0;
 
             if (editingRecordId !== null) {
                 // Modo Edição
@@ -702,6 +714,7 @@
                         deformed: deformedVal,
                         underweight: underweightVal,
                         avgSize: avgSize,
+                        avgWeight: avgWeight,
                         photosDeformed: [...currentPhotosDeformed],
                         photosUnderweight: [...currentPhotosUnderweight],
                         photosToHarvest: [...currentPhotosToHarvest]
@@ -727,6 +740,7 @@
                     deformed: deformedVal,
                     underweight: underweightVal,
                     avgSize: avgSize,
+                    avgWeight: avgWeight,
                     photosDeformed: [...currentPhotosDeformed],
                     photosUnderweight: [...currentPhotosUnderweight],
                     photosToHarvest: [...currentPhotosToHarvest]
@@ -818,6 +832,7 @@
             document.getElementById('reg-deformed').value = deformedVal;
             document.getElementById('reg-underweight').value = underweightVal;
             document.getElementById('reg-avg-size').value = record.avgSize;
+            document.getElementById('reg-avg-weight').value = record.avgWeight || '';
 
             currentPhotosDeformed = [...(record.photosDeformed || [])];
             currentPhotosUnderweight = [...(record.photosUnderweight || [])];
@@ -1029,9 +1044,13 @@
                                 <span class="text-xs font-extrabold text-amber-600">${underweightCount}</span>
                             </div>
 
-                            <div class="bg-sky-50/55 p-2 rounded-xl border border-sky-100 flex flex-col items-center justify-center text-center col-span-2 sm:col-span-4 md:col-span-2">
+                            <div class="bg-sky-50/55 p-2 rounded-xl border border-sky-100 flex flex-col items-center justify-center text-center col-span-1 sm:col-span-2 md:col-span-1">
                                 <span class="text-[9px] text-sky-600 font-bold uppercase tracking-wider block mb-1">Média Cm</span>
                                 <span class="text-xs font-extrabold text-sky-700">${Number(record.avgSize).toFixed(1)}</span>
+                            </div>
+                            <div class="bg-indigo-50/55 p-2 rounded-xl border border-indigo-100 flex flex-col items-center justify-center text-center col-span-1 sm:col-span-2 md:col-span-1">
+                                <span class="text-[9px] text-indigo-600 font-bold uppercase tracking-wider block mb-1">Média Peso</span>
+                                <span class="text-xs font-extrabold text-indigo-700">${Number(record.avgWeight || 0).toFixed(2)}</span>
                             </div>
                         </div>
                     </div>
@@ -1182,6 +1201,7 @@
             document.getElementById('print-deformadas').innerText = deformedVal;
             document.getElementById('print-abaixo-peso').innerText = underweightVal;
             document.getElementById('print-media-cm').innerText = `${Number(record.avgSize).toFixed(1)}`;
+            document.getElementById('print-media-peso').innerText = `${Number(record.avgWeight || 0).toFixed(2)}`;
 
             const now = new Date();
             const dateStr = now.toLocaleDateString('pt-PT');
